@@ -1,17 +1,17 @@
-# template-project
+# flightmodels
 
-> 🧪 A modern Python template for scientific projects — with clean code, automated tests, documentation, citation, and publication tools, ready out-of-the-box.
+This is a starting point for thinking about running glider flight models on data in OG1 format.
 
-This repository is designed to help researchers and developers (especially in the [UHH Experimental Oceanography group](http://eleanorfrajka.com) quickly launch well-structured Python projects with consistent tooling for open science.
+📘 Documentation is available at:
+👉 https://eleanorfrajka.github.io/flightmodels/
 
-📘 Full documentation available at:  
-👉 https://eleanorfrajka.github.io/template-project/
+Originating from conversations associated with the "vertical velocities" group at [OceanGlidersCommunity](https://github.com/OceanGlidersCommunity/Vertical_Velocities_SOP).  If/when this package is in good shape, it could be transferred to http://github.com/OceanGlidersCommunity or some other relevant organisation.
 
 ---
 
 ## 🚀 What's Included
 
-- ✅ Example Python package layout: `template_project/*.py`
+- ✅ Python package layout: `flightmodels/*.py`
 - 📓 Jupyter notebook demo: `notebooks/demo.ipynb`
 - 📄 Markdown and Sphinx-based documentation in `docs/`
 - 🔍 Tests with `pytest` in `tests/`, CI with GitHub Actions
@@ -21,48 +21,15 @@ This repository is designed to help researchers and developers (especially in th
 
 ---
 
-## Project structure
-
-template-project/
-├── .github/
-│   └── workflows/              # GitHub Actions for tests, docs, PyPI
-├── docs/                       # Sphinx-based documentation
-│   ├── source/                 # reStructuredText + MyST Markdown + _static
-│   └── Makefile                # for building HTML docs
-├── notebooks/                  # Example notebooks
-├── template_project/           # Main Python package
-│   ├── __init__.py
-│   ├── _version.py
-│   ├── tools.py
-│   ├── readers.py
-│   ├── writers.py
-│   ├── utilities.py
-│   ├── plotters.py
-│   └── template_project.mplstyle  # Optional: matplotlib style file
-├── tests/                      # Pytest test suite
-│   ├── test_tools.py
-│   └── test_utilities.py
-├── .gitignore
-├── .pre-commit-config.yaml
-├── CITATION.cff                # Sample file for citable software
-├── CONTRIBUTING.md             # Sample file for inviting contributions
-├── LICENSE                     # Sample MIT license
-├── README.md
-├── pyproject.toml              # Modern packaging config
-├── requirements.txt            # Package requirements
-├── customisation_checklist.md  # Development requirements
-└── requirements-dev.txt        # Linting, testing, docs tools
-
-
----
-
 ## 🔧 Quickstart
 
 Install in development mode:
 
 ```bash
-git clone https://github.com/eleanorfrajka/template-project.git
-cd template-project
+git clone https://github.com/eleanorfrajka/flightmodels.git
+cd flightmodels
+python -m venv venv       # if you manage environments with venv
+source venv/bin/activate  # if you manage environments with venv
 pip install -r requirements-dev.txt
 pip install -e .
 ```
@@ -82,31 +49,13 @@ make html
 
 ---
 
-## 📚 Learn More
-
-- [Setup instructions](https://eleanorfrajka.github.io/template-project/setup.html)
-- [Solo Git workflow](https://eleanorfrajka.github.io/template-project/gitworkflow_solo.html)
-- [Fork-based collaboration](https://eleanorfrajka.github.io/template-project/gitcollab_v2.html)
-- [Building docs](https://eleanorfrajka.github.io/template-project/build_docs.html)
-- [Publishing to PyPI](https://eleanorfrajka.github.io/template-project/pypi_guide.html)
-
----
-
 ## 🤝 Contributing
 
-Contributions are welcome!  Please also consider adding an [issue](https://github.com/eleanorfrajka/template-project/issues) when something isn't clear.
-
-See the [customisation checklist](customisation_checklist.md) to adapt this template to your own project.
+Contributions are welcome!  Please also consider adding an [issue](https://github.com/eleanorfrajka/flightmodels/issues) when something isn't clear.
 
 ---
 
 ## Future plans
 
-I'll also (once I know how) add instructions for how to publish the package to conda forge, so that folks who use conda or mamba for environment management can also install that way.
+Incorporate flight models based on FW2011 (to be added, matlab based) and the [Seaglider basestation](https://github.com/iop-apl-uw/basestation3/blob/master/FlightModel.py) designed to run on Seaglider data, and from Lucas Merckelbach's [gliderflight](https://gliderflight.readthedocs.io/en/latest/using_gliderflight.html) designed to run on Slocum data.
 
----
-
-## 📣 Citation
-
-This repository includes a `CITATION.cff` file so that users of this template can include one in their own project.  
-There is no need to cite this repository directly.

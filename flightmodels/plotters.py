@@ -16,7 +16,7 @@ def plot_monthly_transport(ds: xr.Dataset, var: str = "moc_mar_hc10") -> None:
         Name of the variable to plot. Default is "moc_mar_hc10".
     """
     here = Path(__file__).resolve().parent
-    plt.style.use(here / "template_project.mplstyle")
+    plt.style.use(here / "flightmodels.mplstyle")
 
     da = ds[var]
     ds_monthly = ds.resample(TIME="ME").mean()

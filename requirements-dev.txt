@@ -6,7 +6,7 @@ scipy>=1.10
 netcdf4>=1.6
 
 # Oceanographic tools
-#gsw>=3.6.16
+gsw>=3.6.16
 #cmocean>=2.0  # optional, confirm usage
 #cartopy>=0.22  # optional, confirm usage
 

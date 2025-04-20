@@ -1,10 +1,10 @@
-# amocarray/logger.py
+# flightmodels/logger.py
 import datetime
 import logging
 from pathlib import Path
 
 # Global logger instance (will be configured by setup_logger)
-log = logging.getLogger("amocarray")
+log = logging.getLogger("flightmodels")
 log.setLevel(logging.DEBUG)  # capture everything; handlers filter later
 
 # Global logging flag

@@ -6,8 +6,8 @@ from urllib.parse import urlparse
 import xarray as xr
 import requests
 
-from template_project import logger
-from template_project.logger import log_debug, log_error, log_info
+from flightmodels import logger
+from flightmodels.logger import log_debug, log_error, log_info
 
 log = logger.log
 
