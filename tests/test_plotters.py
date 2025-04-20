@@ -4,7 +4,7 @@ import xarray as xr
 from pandas.io.formats.style import Styler
 from pandas import DataFrame
 
-from template_project import plotters
+from flightmodels import plotters
 
 
 def test_plot_monthly_transport_runs():

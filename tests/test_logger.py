@@ -1,5 +1,5 @@
 import time
-from template_project import logger
+from flightmodels import logger
 import logging
 
 

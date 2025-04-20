@@ -1,8 +1,8 @@
 import numpy as np
 import xarray as xr
 
-from template_project import tools
-from template_project.tools import reformat_units_var
+from flightmodels import tools
+from flightmodels.tools import reformat_units_var
 
 
 def test_reformat_units_var_sv_conversion():

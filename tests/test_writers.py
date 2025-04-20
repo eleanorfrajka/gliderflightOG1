@@ -1,6 +1,7 @@
-import xarray as xr
 import numpy as np
-from template_project.writers import save_dataset
+import xarray as xr
+
+from flightmodels.writers import save_dataset
 
 
 def create_dummy_dataset():

@@ -5,7 +5,7 @@ from unittest.mock import MagicMock, patch
 import pytest
 import xarray as xr
 
-from template_project import logger, utilities
+from flightmodels import logger, utilities
 
 # Sample data
 VALID_URL = "https://rapid.ac.uk/sites/default/files/rapid_data/"
@@ -25,7 +25,7 @@ def test_get_default_data_dir():
     )  # Should be valid even if data folder doesn't yet exist
 
 
-@patch("template_project.utilities.requests.get")
+@patch("flightmodels.utilities.requests.get")
 def test_download_file_http(mock_get):
     # Set up mock HTTP response
     mock_response = MagicMock()
@@ -89,7 +89,6 @@ def test_safe_update_attrs_add_new_attribute():
 
 
 def test_safe_update_attrs_existing_key_logs(caplog):
-    from template_project import logger, utilities
 
     # Re-enable logging for this test
     logger.enable_logging()
