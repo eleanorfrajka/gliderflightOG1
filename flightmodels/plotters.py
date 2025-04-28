@@ -1,50 +1,76 @@
-from pathlib import Path
-
 from pandas import DataFrame
 import matplotlib.pyplot as plt
 import xarray as xr
 
 
-def plot_monthly_transport(ds: xr.Dataset, var: str = "moc_mar_hc10") -> None:
-    """Plot original and monthly averaged transport time series.
+def plot_model_comparisons(
+    glider: xr.Dataset,
+    models: dict,
+    x_axis: str = "TIME",
+    select_dives: list = None,
+    select_timerange: tuple = None,
+    variable: str = "VERTICAL_SPEED",
+    label_variable: str = "Measured Vertical Speed",
+    model_labels: list = None,
+    title: str = "",
+):
+    """
+    Plot measured vs modeled glider speeds for multiple models.
 
     Parameters
     ----------
-    ds : xr.Dataset
-        Dataset with a time dimension and a transport variable.
-    var : str, optional
-        Name of the variable to plot. Default is "moc_mar_hc10".
+    glider : xarray.Dataset
+        Dataset containing glider measurements.
+    models : dict
+        Dictionary of model outputs, e.g., {'steady': speed_array, 'unsteady': speed_array}.
+    x_axis : str, optional
+        Which x-axis to use ('TIME' or 'DIVENUM').
+    select_dives : list of int, optional
+        List of dive numbers to plot.
+    select_timerange : tuple of floats, optional
+        (start_time, end_time) in same units as glider['TIME'].
+    variable : str, optional
+        Measured variable name (default 'VERTICAL_SPEED').
+    label_variable : str, optional
+        Label for measured variable.
+    model_labels : list of str, optional
+        Labels for model results; if None, keys of models dict are used.
+    title : str, optional
+        Plot title.
     """
-    here = Path(__file__).resolve().parent
-    plt.style.use(here / "flightmodels.mplstyle")
 
-    da = ds[var]
-    ds_monthly = ds.resample(TIME="ME").mean()
+    # Select subset
+    if select_dives is not None:
+        selection = glider.where(glider["DIVENUM"].isin(select_dives), drop=True)
+    elif select_timerange is not None:
+        start, end = select_timerange
+        selection = glider.where(
+            (glider["TIME"] >= start) & (glider["TIME"] <= end), drop=True
+        )
+    else:
+        selection = glider
 
-    fig, ax = plt.subplots()
-    ax.plot(ds.TIME, da, color="grey", alpha=0.5, linewidth=0.5, label="Original")
-    ax.plot(
-        ds_monthly.TIME,
-        ds_monthly[var],
-        color="red",
-        linewidth=1.0,
-        label="Monthly Avg",
+    x = selection[x_axis].values
+    y_measured = selection[variable].values
+
+    plt.figure(figsize=(10, 6))
+    plt.plot(
+        x, y_measured, label=label_variable, linestyle="-", marker="o", markersize=3
     )
-    ax.axhline(0, color="black", linestyle="--", linewidth=0.5)
 
-    ax.set_title("RAPID 26°N - AMOC")
+    if model_labels is None:
+        model_labels = list(models.keys())
 
-    # Use variable attributes if present
-    label = da.attrs.get("long_name", var)
-    units = da.attrs.get("units", "")
-    ax.set_ylabel(f"{label} [{units}]" if units else label)
+    for idx, (model_name, model_data) in enumerate(models.items()):
+        plt.plot(x, model_data, label=model_labels[idx])
 
-    ax.spines["top"].set_visible(False)
-    ax.spines["right"].set_visible(False)
-    ax.legend()
+    plt.xlabel(x_axis)
+    plt.ylabel("Vertical Speed (cm/s)")
+    plt.legend()
+    plt.grid(True)
+    plt.title(title or "Measured vs Modeled Glider Speeds")
     plt.tight_layout()
-
-    return fig, ax
+    plt.show()
 
 
 def show_variables(data):

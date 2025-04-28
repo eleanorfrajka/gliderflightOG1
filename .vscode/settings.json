@@ -6,8 +6,8 @@
     "python.formatting.provider": "black",
     "editor.formatOnSave": true,
     "editor.codeActionsOnSave": {
-        "source.organizeImports": "explicit",
-        "source.fixAll": "explicit"
+        "source.fixAll": true,
+        "source.organizeImports": true
     },
     // === Linting ===
     "python.linting.enabled": true,
@@ -18,6 +18,11 @@
         "${workspaceFolder}/venv/bin/ruff"
     ],
     "pre-commit.executablePath": "${workspaceFolder}/venv/bin/pre-commit",
+    // === Python analysis enhancements ===
+    "python.languageServer": "Pylance",
+    "python.analysis.typeCheckingMode": "basic",
+    "python.analysis.autoImportCompletions": true,
+    // === Terminal and PATH ===
     "terminal.integrated.env.osx": {
         "PATH": "${workspaceFolder}/venv/bin:${env:PATH}:/opt/homebrew/bin:/opt/homebrew/opt/tcl-tk@8/bin:$HOME/.pyenv/bin"
     },
@@ -28,5 +33,5 @@
     "files.insertFinalNewline": true,
     "files.autoSave": "onFocusChange",
     // === Jupyter support (optional) ===
-    "jupyter.jupyterServerType": "local",
+    "jupyter.jupyterServerType": "local"
 }
