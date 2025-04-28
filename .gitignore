@@ -7,6 +7,9 @@ logs/*log
 
 # VSCode settings
 .vscode/*
+.vscode/settings.json
+
+flightmodels/_version.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

@@ -6,39 +6,8 @@ import xarray as xr
 
 from flightmodels import logger
 from flightmodels.logger import log_info
-from flightmodels.read_rapid import read_rapid
 
 log = logger.log
-
-
-def _get_reader(array_name: str):
-    """Return the reader function for the given array name.
-
-    Parameters
-    ----------
-    array_name : str
-        The name of the observing array.
-
-    Returns
-    -------
-    function
-        Reader function corresponding to the given array name.
-
-    Raises
-    ------
-    ValueError
-        If an unknown array name is provided.
-
-    """
-    readers = {
-        "rapid": read_rapid,
-    }
-    try:
-        return readers[array_name.lower()]
-    except KeyError:
-        raise ValueError(
-            f"Unknown array name: {array_name}. Valid options are: {list(readers.keys())}",
-        )
 
 
 def load_sample_dataset(array_name: str = "rapid") -> xr.Dataset:

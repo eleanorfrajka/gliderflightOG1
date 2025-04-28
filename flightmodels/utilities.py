@@ -12,6 +12,32 @@ from flightmodels.logger import log_debug, log_error, log_info
 log = logger.log
 
 
+def _check_necessary_variables(ds: xr.Dataset, vars: list):
+    """
+    Checks that all of a list of variables are present in a dataset.
+
+    Parameters
+    ----------
+    ds: xarray.Dataset
+        Dataset that should be checked
+    vars: list
+        List of variables
+
+    Raises
+    ------
+    KeyError:
+        Raises an error if all vars not present in ds
+
+    Notes
+    -----
+    Original Author: Callum Rollo
+    """
+    missing_vars = set(vars).difference(set(ds.variables))
+    if missing_vars:
+        msg = f"Required variables {list(missing_vars)} do not exist in the supplied dataset."
+        raise KeyError(msg)
+
+
 def get_default_data_dir() -> Path:
     return Path(__file__).resolve().parent.parent / "data"
 
