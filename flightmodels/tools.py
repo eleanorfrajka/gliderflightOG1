@@ -233,19 +233,19 @@ def ml_coord(wg, wspdg, pgrid, mld, minmld=40):
     wmean = np.full(nprofiles, np.nan)
     wsqr = np.full(nprofiles, np.nan)
 
-    hgrid = pgrid[:-1] / 1000  # Convert dbar to km for plotting
+    hgrid = pgrid / 1000  # Convert dbar to km for plotting
     h = np.full(nprofiles, np.nan)
 
     for p in range(nprofiles):
         if np.isnan(mld[p]):
             mld[p] = 1001  # Fill missing MLD with deep dummy value
 
-        mask = pgrid[:-1] <= max(minmld, mld[p])
+        mask = pgrid <= max(minmld, mld[p])
         if np.any(mask):
             diff = wspdg[p, mask] - wg[p, mask]
             wmean[p] = np.nanmean(diff)
             wsqr[p] = np.nanmean(diff**2)
-            h[p] = np.nanmean(pgrid[:-1][mask])
+            h[p] = np.nanmean(pgrid[mask])
 
     return wmean, wsqr, h, hgrid
 
@@ -278,7 +278,7 @@ def bl_coord(wg, wspdg, pgrid, mld):
         if np.isnan(mld[p]):
             mld[p] = 1001  # Fill missing MLD
 
-        mask = pgrid[:-1] > mld[p]
+        mask = pgrid > mld[p]
         if np.any(mask):
             diff = wspdg[p, mask] - wg[p, mask]
             wmean[p] = np.nanmean(diff)

@@ -5,17 +5,27 @@ from scipy.integrate import solve_ivp
 from scipy.optimize import minimize
 from scipy.sparse.linalg import splu
 
-from flightmodels import tools, utilities
+from flightmodels import tools
 
 PROFDIFF = None
 
 
-def flightvec_ds(ds: xr.Dataset, xl: float, hd_a: float, hd_b: float, hd_c: float) -> xr.Dataset:
+def flightvec_ds(
+    ds: xr.Dataset, xl: float, hd_a: float, hd_b: float, hd_c: float
+) -> xr.Dataset:
     """
     Run flightvec on an OG1 xarray Dataset.
     """
-    umag, thdeg = flightvec(ds['buoyancy'].values, ds['pitch'].values, xl, hd_a, hd_b, hd_c, ds['rho0'].values)
-    ds = ds.assign(umag=(('time',), umag), thdeg=(('time',), thdeg))
+    umag, thdeg = flightvec(
+        ds["buoyancy"].values,
+        ds["pitch"].values,
+        xl,
+        hd_a,
+        hd_b,
+        hd_c,
+        ds["rho0"].values,
+    )
+    ds = ds.assign(umag=(("time",), umag), thdeg=(("time",), thdeg))
     return ds
 
 
@@ -59,25 +69,27 @@ def regress_all_vec(
     print("Doing regress_all_vec")
 
     # Extract initial glider flight parameters from attributes
-    hd_a = glider.attrs['hd_a']
-    hd_b = glider.attrs['hd_b']
-    vbdbias = glider.attrs['vbdbias']
-    abs_compress = glider.attrs['abs_compress']
-    therm_expan = glider.attrs['therm_expan']
-    hd_c = glider.attrs['hd_c']
+    hd_a = glider.attrs["hd_a"]
+    hd_b = glider.attrs["hd_b"]
+    vbdbias = glider.attrs["vbdbias"]
+    abs_compress = glider.attrs["abs_compress"]
+    therm_expan = glider.attrs["therm_expan"]
+    hd_c = glider.attrs["hd_c"]
 
     # Create initial guess vector (scaling to match original code)
-    x_0 = np.array([
-        hd_a * 1e3,
-        hd_b * 1e3,
-        vbdbias,
-        abs_compress * 1e6,
-        therm_expan * 1e5,
-        hd_c * 1e5
-    ])
+    x_0 = np.array(
+        [
+            hd_a * 1e3,
+            hd_b * 1e3,
+            vbdbias,
+            abs_compress * 1e6,
+            therm_expan * 1e5,
+            hd_c * 1e5,
+        ]
+    )
 
     # Find matching indices for selected dives
-    is_selected = np.isin(glider['DIVENUM'].values, ensmat)
+    is_selected = np.isin(glider["DIVENUM"].values, ensmat)
     glider0 = glider.sel(N_MEASUREMENTS=is_selected)
 
     # Build initial guess subset according to whichpar
@@ -88,20 +100,19 @@ def regress_all_vec(
         f_misfit_all,
         x_1,
         args=(whichpar, glider0, whichone, unstdyflag),
-        method='Nelder-Mead',
+        method="Nelder-Mead",
         options={
-            'disp': True,
-            'xatol': 0.1,
-            'fatol': 0.01,
-            'maxfev': 250,
-        }
+            "disp": True,
+            "xatol": 0.1,
+            "fatol": 0.01,
+            "maxfev": 250,
+        },
     )
 
     regressout = result.x
     allwrms = result.fun
 
     return regressout, allwrms
-
 
 
 # Subfunction: Acceleration equations for glide
@@ -128,7 +139,7 @@ def glide_acc(t, V, t_grid, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, enclosed_ma
     buoyancy = buoy[idx]
     pitch_angle = pitch[idx] * np.pi / 180
 
-    umag = np.sqrt(V[0]**2 + V[1]**2)  # speed magnitude
+    umag = np.sqrt(V[0] ** 2 + V[1] ** 2)  # speed magnitude
     q = 0.5 * rho0 * umag**2  # dynamic pressure
 
     # Aerodynamic forces
@@ -144,6 +155,7 @@ def glide_acc(t, V, t_grid, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, enclosed_ma
     dVz_dt = Fz / (enclosed_mass + added_mass)
 
     return [dVx_dt, dVz_dt]
+
 
 # Main function
 def flightvec_unstdy(time, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, tau0=20, odeFLAG=1):
@@ -197,13 +209,13 @@ def flightvec_unstdy(time, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, tau0=20, ode
             [0, 0],  # Initial horizontal and vertical velocities
             t_eval=time,
             args=(time, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, enclosed_mass),
-            method='RK23',
+            method="RK23",
             rtol=mytol * 1e-3,
             atol=mytol * 1e-5,
         )
 
         V = sol.y.T  # Velocities over time
-        spd_unstdy = np.sqrt(V[:, 0]**2 + V[:, 1]**2)
+        spd_unstdy = np.sqrt(V[:, 0] ** 2 + V[:, 1] ** 2)
         glideangle_unstdy = np.degrees(np.arctan2(V[:, 1], V[:, 0]))
 
         # Invalidate unrealistic results
@@ -216,13 +228,15 @@ def flightvec_unstdy(time, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, tau0=20, ode
         w_unstdy = spd_unstdy * np.sin(np.radians(glideangle_unstdy))
 
         # Save unsteady ODE outputs
-        spd['unstdy_ode'] = spd_unstdy
-        spd['w_unstdy_ode'] = w_unstdy
-        ang['unstdy_ode'] = glideangle_unstdy
+        spd["unstdy_ode"] = spd_unstdy
+        spd["w_unstdy_ode"] = w_unstdy
+        ang["unstdy_ode"] = glideangle_unstdy
 
     if odeFLAG < 2:
         # Otherwise, fallback to simple lag model based on steady flight
-        from .seaglider import flightvec  # assumed your flightvec0 is already translated
+        from .seaglider import (
+            flightvec,
+        )  # assumed your flightvec0 is already translated
 
         spd_stdy, glideangle_stdy = flightvec(buoy, pitch, xl, hd_a, hd_b, hd_c, rho0)
         spd_stdy = np.asarray(spd_stdy)
@@ -235,10 +249,10 @@ def flightvec_unstdy(time, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, tau0=20, ode
         hspd_stdy = spd_stdy * np.cos(np.radians(glideangle_stdy))
         w_stdy = spd_stdy * np.sin(np.radians(glideangle_stdy))
 
-        spd['stdy'] = spd_stdy
-        spd['h_stdy'] = hspd_stdy
-        spd['w_stdy'] = w_stdy
-        ang['stdy'] = glideangle_stdy
+        spd["stdy"] = spd_stdy
+        spd["h_stdy"] = hspd_stdy
+        spd["w_stdy"] = w_stdy
+        ang["stdy"] = glideangle_stdy
 
         # Lag model
         tau_i = tau0
@@ -248,10 +262,23 @@ def flightvec_unstdy(time, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, tau0=20, ode
         coef_d[-1] = tau_i / (time[-1] - time[-2])
 
         # Build sparse matrix GI
-        GI = (
-            sp.diags([-coef_d[1:], 1 + np.zeros(mp), coef_d[:-1]], [-1, 0, 1], shape=(mp, mp))
-            .tocsc()
-        )
+        # Build diagonals
+        diagonals = [
+            -coef_d[1:],  # Lower diagonal (-1)
+            np.ones(mp),  # Main diagonal (0)
+            coef_d[:-1],  # Upper diagonal (+1)
+        ]
+        offsets = np.array([-1, 0, 1])  # Unsure how to pass this
+
+        # Create sparse matrix
+        GI = sp.diags(
+            [-coef_d[1:], np.ones(mp), coef_d[:-1]], [-1, 0, 1], shape=(mp, mp)
+        ).tocsc()
+
+        # Fix special corner entries
+        GI[0, 0] -= coef_d[0]  # (1,1) term
+        GI[-1, -1] += coef_d[-1]  # (mp,mp) term
+
         solver = splu(GI)
 
         hspd_unstdy = solver.solve(hspd_stdy)
@@ -261,12 +288,13 @@ def flightvec_unstdy(time, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, tau0=20, ode
         glideangle_unstdy = np.degrees(np.arctan2(w_unstdy, hspd_unstdy))
 
         # Save lagged flight results
-        spd['unstdy_lag'] = spd_unstdy
-        spd['w_unstdy_lag'] = w_unstdy
-        spd['h_unstdy_lag'] = hspd_unstdy
-        ang['unstdy_lag'] = glideangle_unstdy
+        spd["unstdy_lag"] = spd_unstdy
+        spd["w_unstdy_lag"] = w_unstdy
+        spd["h_unstdy_lag"] = hspd_unstdy
+        ang["unstdy_lag"] = glideangle_unstdy
 
     return spd, ang
+
 
 def flightvec(
     buoy: np.ndarray,
@@ -328,8 +356,8 @@ def flightvec(
     param = np.ones_like(buoy)
 
     # Initialize outputs
-    umag = np.zeros_like(buoy)    # steady speed (cm/s)
-    thdeg = np.zeros_like(buoy)   # glide angle (degrees)
+    umag = np.zeros_like(buoy, dtype=float)  # steady speed (cm/s)
+    thdeg = np.zeros_like(buoy, dtype=float)  # glide angle (degrees)
 
     # Mask of valid entries: buoyancy ≠ 0 and pitch matches sign of buoyancy
     valid = (buoy != 0) & (np.sign(buoy) * np.sign(pitch) > 0)
@@ -340,21 +368,27 @@ def flightvec(
         q_old = q.copy()
 
         # Calculate inverse of aerodynamic parameter
-        param_inv = hd_a * hd_a * np.tan(th) ** 2 * q ** 0.25 / (4 * hd_b * hd_c)
+        param_inv = hd_a * hd_a * np.tan(th) ** 2 * q**0.25 / (4 * hd_b * hd_c)
 
         # Update valid points (param_inv must be > 1 and pitch sign must match buoyancy)
         valid = (param_inv > 1) & (np.sign(buoy) * np.sign(pitch) > 0)
 
         # Calculate flight parameters for valid entries
-        param[valid] = 4 * hd_b * hd_c / (hd_a * hd_a * np.tan(th[valid]) ** 2 * q[valid] ** 0.25)
-
-        # Update dynamic pressure q for valid entries
-        q[valid] = (buoyforce[valid] * np.sin(th[valid]) / (2 * xl * xl * hd_b * q[valid] ** -0.25)) * (
-            1 + np.sqrt(1 - param[valid])
+        param[valid] = (
+            4 * hd_b * hd_c / (hd_a * hd_a * np.tan(th[valid]) ** 2 * q[valid] ** 0.25)
         )
 
+        # Update dynamic pressure q for valid entries
+        q[valid] = (
+            buoyforce[valid]
+            * np.sin(th[valid])
+            / (2 * xl * xl * hd_b * q[valid] ** -0.25)
+        ) * (1 + np.sqrt(1 - param[valid]))
+
         # Calculate attack angle alpha
-        alpha[valid] = (-hd_a * np.tan(th[valid]) / (2 * hd_c)) * (1 - np.sqrt(1 - param[valid]))
+        alpha[valid] = (-hd_a * np.tan(th[valid]) / (2 * hd_c)) * (
+            1 - np.sqrt(1 - param[valid])
+        )
 
         # Update glide angle thdeg (degrees) if valid points exist
         if valid.any():
@@ -379,8 +413,6 @@ def flightvec(
         umag = 100 * np.sqrt(2 * q / rho0)  # output in cm/s
 
     return umag, thdeg
-
-
 
 
 def f_misfit_all(x, whichpar, glider: xr.Dataset, whichone: int, unstdyflag: int):
@@ -408,13 +440,12 @@ def f_misfit_all(x, whichpar, glider: xr.Dataset, whichone: int, unstdyflag: int
     global PROFDIFF
 
     # Start with original glider parameters
-    hd_a = glider.attrs['hd_a']
-    hd_b = glider.attrs['hd_b']
-    vbdbias = glider.attrs['vbdbias']
-    abs_compress = glider.attrs['abs_compress']
-    therm_expan = glider.attrs['therm_expan']
-    hd_c = glider.attrs['hd_c']
-
+    hd_a = glider.attrs["hd_a"]
+    hd_b = glider.attrs["hd_b"]
+    vbdbias = glider.attrs["vbdbias"]
+    abs_compress = glider.attrs["abs_compress"]
+    therm_expan = glider.attrs["therm_expan"]
+    hd_c = glider.attrs["hd_c"]
 
     # Apply updated values from optimization vector
     x_full = np.zeros(6)
@@ -438,27 +469,27 @@ def f_misfit_all(x, whichpar, glider: xr.Dataset, whichone: int, unstdyflag: int
         hd_c = x_full[5] / 1e5
 
     # Pull out data arrays
-    vbd = glider['VBD'].values
-    c_vbd = glider['C_VBD'].values
-    press = glider['PRES'].values
-    temp = glider['TEMP'].values
-    salin = glider['PSAL'].values
-    pitch = glider['PITCH'].values
-    speed = glider['GLIDE_SPEED'].values
-    time = glider['TIME'].values
-    w_measured = glider['GLIDER_VERT_VELO_DZDT'].values
-    divenum = glider['DIVENUM'].values
-    updn = glider['UPDN'].values
-    lat = glider['LATITUDE'].values.mean()
-    lon = glider['LONGITUDE'].values.mean()
+    vbd = glider["VBD"].values
+    c_vbd = glider["C_VBD"].values
+    press = glider["PRES"].values
+    temp = glider["TEMP"].values
+    salin = glider["PSAL"].values
+    pitch = glider["PITCH"].values
+    speed = glider["GLIDE_SPEED"].values
+    time = glider["TIME"].values
+    w_measured = glider["GLIDER_VERT_VELO_DZDT"].values
+    divenum = glider["DIVENUM"].values
+    updn = glider["UPDN"].values
+    lat = glider["LATITUDE"].values.mean()
+    lon = glider["LONGITUDE"].values.mean()
 
     # Constants
-    vbd_min_cnts = glider.attrs['vbd_min_cnts']
-    vbd_cnts_per_cc = glider.attrs['vbd_cnts_per_cc']
-    temp_ref = glider.attrs['temp_ref']
-    volmax = glider.attrs['volmax']
-    mass = glider.attrs['mass']
-    rho0 = glider.attrs['rho0']
+    vbd_min_cnts = glider.attrs["vbd_min_cnts"]
+    vbd_cnts_per_cc = glider.attrs["vbd_cnts_per_cc"]
+    temp_ref = glider.attrs["temp_ref"]
+    volmax = glider.attrs["volmax"]
+    mass = glider.attrs["mass"]
+    rho0 = glider.attrs["rho0"]
 
     # Recalculate volume and buoyancy
     vol1 = vbd + volmax + (c_vbd - vbd_min_cnts) / vbd_cnts_per_cc
@@ -473,12 +504,19 @@ def f_misfit_all(x, whichpar, glider: xr.Dataset, whichone: int, unstdyflag: int
     valid = np.where((vbdc * pitch > 0) & (speed > 0))[0]
 
     if unstdyflag == 0:
-        spd_stdy, glideangle_stdy = flightvec(buoy[valid], pitch[valid], 1.8, hd_a, hd_b, hd_c, rho0)
+        spd_stdy, glideangle_stdy = flightvec(
+            buoy[valid], pitch[valid], 1.8, hd_a, hd_b, hd_c, rho0
+        )
         w_model = spd_stdy * np.sin(np.radians(glideangle_stdy))
     else:
         tau0 = 12
-        spd = flightvec_unstdy(time[valid], buoy[valid], pitch[valid], 1.8, hd_a, hd_b, hd_c, rho0, tau0, 0)
-        w_model = spd['w_unstdy_lag']
+        spd = flightvec_unstdy(
+            time[valid], buoy[valid], pitch[valid], 1.8, hd_a, hd_b, hd_c, rho0, tau0, 0
+        )
+        if isinstance(spd, dict):
+            w_model = spd["w_unstdy_lag"]
+        else:
+            raise TypeError(f"Expected 'spd' to be a dictionary, but got {type(spd)}")
 
     # Remove invalid entries
     valid2 = np.isreal(w_model)
@@ -491,18 +529,24 @@ def f_misfit_all(x, whichpar, glider: xr.Dataset, whichone: int, unstdyflag: int
 
     # Minimize appropriate quantity
     if whichone < 5:
-        allmin = tools.choose_min_long(w_measured, w_model, time, divenum, updn, whichone)
+        allmin = tools.choose_min_long(
+            w_measured, w_model, time, divenum, updn, press, whichone
+        )
     elif whichone < 10:
-        if 'PGRID' in glider:
-            pgrid = glider['PGRID'].values
+        if "PGRID" in glider:
+            pgrid = glider["PGRID"].values
         else:
             pgrid = np.arange(0, 1000, 10)
-        wg, wspdg, timeg, divenumg, updng = tools.gridthem(w_measured, w_model, time, divenum, updn, press, pgrid)
-        allmin, profdiff = tools.choose_min_prof(wg, wspdg, timeg, divenumg, updng, pgrid, whichone)
+        wg, wspdg, timeg, divenumg, updng = tools.gridthem(
+            w_measured, w_model, time, divenum, updn, press, pgrid
+        )
+        allmin, profdiff = tools.choose_min_prof(
+            wg, wspdg, timeg, divenumg, updng, pgrid, press, whichone
+        )
         PROFDIFF = profdiff
     else:
-        if 'PGRID' in glider:
-            pgrid = glider['PGRID'].values
+        if "PGRID" in glider:
+            pgrid = glider["PGRID"].values
         else:
             pgrid = np.arange(0, 1000, 10)
         allmin, profdiff = tools.ramsey_offset(w_measured, w_model, updn, press, pgrid)
@@ -510,23 +554,23 @@ def f_misfit_all(x, whichpar, glider: xr.Dataset, whichone: int, unstdyflag: int
 
     # Extract wrms based on whichone
     if whichone == 1:
-        wrms = allmin['charlie']
+        wrms = allmin["charlie"]
     elif whichone == 2:
-        wrms = allmin['meanbl']
+        wrms = allmin["meanbl"]
     elif whichone == 3:
-        wrms = allmin['intdiff']
+        wrms = allmin["intdiff"]
     elif whichone == 4:
-        wrms = allmin['intdiffbl'] + allmin['intdiffbl2'] / 5000
+        wrms = allmin["intdiffbl"] + allmin["intdiffbl2"] / 5000
     elif whichone == 5:
-        wrms = allmin['mlprofdiff']
+        wrms = allmin["mlprofdiff"]
     elif whichone == 6:
-        wrms = allmin['flprofdiff']
+        wrms = allmin["flprofdiff"]
     elif whichone == 7:
-        wrms = allmin['meanw']
+        wrms = allmin["meanw"]
     elif whichone == 8:
-        wrms = allmin['meanwbl']
+        wrms = allmin["meanwbl"]
     elif whichone == 10:
-        wrms = allmin['ramsey']
+        wrms = allmin["ramsey"]
     else:
         raise ValueError(f"Unknown minimization mode: {whichone}")
 
@@ -534,5 +578,3 @@ def f_misfit_all(x, whichpar, glider: xr.Dataset, whichone: int, unstdyflag: int
     print(" ".join(f"{v:.4g}" for v in oneline))
 
     return wrms
-
-
