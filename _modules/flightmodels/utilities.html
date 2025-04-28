@@ -100,6 +100,32 @@
 <span class="n">log</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">log</span>
 
 
+<span class="k">def</span><span class="w"> </span><span class="nf">_check_necessary_variables</span><span class="p">(</span><span class="n">ds</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span> <span class="nb">vars</span><span class="p">:</span> <span class="nb">list</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Checks that all of a list of variables are present in a dataset.</span>
+
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    ds: xarray.Dataset</span>
+<span class="sd">        Dataset that should be checked</span>
+<span class="sd">    vars: list</span>
+<span class="sd">        List of variables</span>
+
+<span class="sd">    Raises</span>
+<span class="sd">    ------</span>
+<span class="sd">    KeyError:</span>
+<span class="sd">        Raises an error if all vars not present in ds</span>
+
+<span class="sd">    Notes</span>
+<span class="sd">    -----</span>
+<span class="sd">    Original Author: Callum Rollo</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">missing_vars</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">vars</span><span class="p">)</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">variables</span><span class="p">))</span>
+    <span class="k">if</span> <span class="n">missing_vars</span><span class="p">:</span>
+        <span class="n">msg</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;Required variables </span><span class="si">{</span><span class="nb">list</span><span class="p">(</span><span class="n">missing_vars</span><span class="p">)</span><span class="si">}</span><span class="s2"> do not exist in the supplied dataset.&quot;</span>
+        <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+
+
 <div class="viewcode-block" id="get_default_data_dir">
 <a class="viewcode-back" href="../../flightmodels.html#flightmodels.utilities.get_default_data_dir">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">get_default_data_dir</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="n">Path</span><span class="p">:</span>

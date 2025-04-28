@@ -68,7 +68,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#flight">flight</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#module-flightmodels.plotters">plotters</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#flightmodels.plotters.plot_monthly_transport"><code class="docutils literal notranslate"><span class="pre">plot_monthly_transport()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flightmodels.plotters.plot_model_comparisons"><code class="docutils literal notranslate"><span class="pre">plot_model_comparisons()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#flightmodels.plotters.show_attributes"><code class="docutils literal notranslate"><span class="pre">show_attributes()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#flightmodels.plotters.show_variables"><code class="docutils literal notranslate"><span class="pre">show_variables()</span></code></a></li>
 </ul>
@@ -78,7 +78,17 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#module-flightmodels.tools">tools</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.bl_coord"><code class="docutils literal notranslate"><span class="pre">bl_coord()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.calc_w_meas"><code class="docutils literal notranslate"><span class="pre">calc_w_meas()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.choose_min_long"><code class="docutils literal notranslate"><span class="pre">choose_min_long()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.choose_min_prof"><code class="docutils literal notranslate"><span class="pre">choose_min_prof()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.compute_insitu_density"><code class="docutils literal notranslate"><span class="pre">compute_insitu_density()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.convert_units_var"><code class="docutils literal notranslate"><span class="pre">convert_units_var()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.cum_ttest"><code class="docutils literal notranslate"><span class="pre">cum_ttest()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.gridthem"><code class="docutils literal notranslate"><span class="pre">gridthem()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.ml_coord"><code class="docutils literal notranslate"><span class="pre">ml_coord()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.ramsey_binavg"><code class="docutils literal notranslate"><span class="pre">ramsey_binavg()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.ramsey_offset"><code class="docutils literal notranslate"><span class="pre">ramsey_offset()</span></code></a></li>
 <li class="toctree-l3"><a class="reference internal" href="#flightmodels.tools.reformat_units_var"><code class="docutils literal notranslate"><span class="pre">reformat_units_var()</span></code></a></li>
 </ul>
 </li>
@@ -182,14 +192,21 @@ If None, the reader-specific default files will be used.</p></li>
 <section id="module-flightmodels.plotters">
 <span id="plotters"></span><h2>plotters<a class="headerlink" href="#module-flightmodels.plotters" title="Link to this heading"></a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="flightmodels.plotters.plot_monthly_transport">
-<span class="sig-prename descclassname"><span class="pre">flightmodels.plotters.</span></span><span class="sig-name descname"><span class="pre">plot_monthly_transport</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'moc_mar_hc10'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="reference internal" href="_modules/flightmodels/plotters.html#plot_monthly_transport"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.plotters.plot_monthly_transport" title="Link to this definition"></a></dt>
-<dd><p>Plot original and monthly averaged transport time series.</p>
+<dt class="sig sig-object py" id="flightmodels.plotters.plot_model_comparisons">
+<span class="sig-prename descclassname"><span class="pre">flightmodels.plotters.</span></span><span class="sig-name descname"><span class="pre">plot_model_comparisons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">glider</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Dataset</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">models</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">dict</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_axis</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'TIME'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_dives</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">select_timerange</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">tuple</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'VERTICAL_SPEED'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label_variable</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'Measured</span> <span class="pre">Vertical</span> <span class="pre">Speed'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_labels</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">title</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/plotters.html#plot_model_comparisons"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.plotters.plot_model_comparisons" title="Link to this definition"></a></dt>
+<dd><p>Plot measured vs modeled glider speeds for multiple models.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>xr.Dataset</em>) – Dataset with a time dimension and a transport variable.</p></li>
-<li><p><strong>var</strong> (<em>str</em><em>, </em><em>optional</em>) – Name of the variable to plot. Default is “moc_mar_hc10”.</p></li>
+<li><p><strong>glider</strong> (<em>xarray.Dataset</em>) – Dataset containing glider measurements.</p></li>
+<li><p><strong>models</strong> (<em>dict</em>) – Dictionary of model outputs, e.g., {‘steady’: speed_array, ‘unsteady’: speed_array}.</p></li>
+<li><p><strong>x_axis</strong> (<em>str</em><em>, </em><em>optional</em>) – Which x-axis to use (‘TIME’ or ‘DIVENUM’).</p></li>
+<li><p><strong>select_dives</strong> (<em>list</em><em> of </em><em>int</em><em>, </em><em>optional</em>) – List of dive numbers to plot.</p></li>
+<li><p><strong>select_timerange</strong> (<em>tuple</em><em> of </em><em>floats</em><em>, </em><em>optional</em>) – (start_time, end_time) in same units as glider[‘TIME’].</p></li>
+<li><p><strong>variable</strong> (<em>str</em><em>, </em><em>optional</em>) – Measured variable name (default ‘VERTICAL_SPEED’).</p></li>
+<li><p><strong>label_variable</strong> (<em>str</em><em>, </em><em>optional</em>) – Label for measured variable.</p></li>
+<li><p><strong>model_labels</strong> (<em>list</em><em> of </em><em>str</em><em>, </em><em>optional</em>) – Labels for model results; if None, keys of models dict are used.</p></li>
+<li><p><strong>title</strong> (<em>str</em><em>, </em><em>optional</em>) – Plot title.</p></li>
 </ul>
 </dd>
 </dl>
@@ -262,6 +279,123 @@ it converts the invalid attributes to strings and retries the save operation.</p
 <section id="module-flightmodels.tools">
 <span id="tools"></span><h2>tools<a class="headerlink" href="#module-flightmodels.tools" title="Link to this heading"></a></h2>
 <dl class="py function">
+<dt class="sig sig-object py" id="flightmodels.tools.bl_coord">
+<span class="sig-prename descclassname"><span class="pre">flightmodels.tools.</span></span><span class="sig-name descname"><span class="pre">bl_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wspdg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pgrid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mld</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/tools.html#bl_coord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.tools.bl_coord" title="Link to this definition"></a></dt>
+<dd><p>Compute means for below-mixed-layer segments of profiles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wg</strong> (<em>ndarray</em>) – Measured vertical speeds gridded (profiles x pressure levels).</p></li>
+<li><p><strong>wspdg</strong> (<em>ndarray</em>) – Modeled vertical speeds gridded (profiles x pressure levels).</p></li>
+<li><p><strong>pgrid</strong> (<em>ndarray</em>) – Pressure grid [dbar].</p></li>
+<li><p><strong>mld</strong> (<em>ndarray</em>) – Mixed layer depth estimates [dbar] (one per profile).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>wmean</strong> – Mean difference (wspdg - wg) below mixed layer, per profile.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flightmodels.tools.calc_w_meas">
+<span class="sig-prename descclassname"><span class="pre">flightmodels.tools.</span></span><span class="sig-name descname"><span class="pre">calc_w_meas</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/tools.html#calc_w_meas"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.tools.calc_w_meas" title="Link to this definition"></a></dt>
+<dd><p>Calculates the vertical velocity of a glider using changes in pressure with time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ds</strong> (<em>xarray.Dataset</em>) – Dataset containing <strong>DEPTH</strong> and <strong>TIME</strong>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ds</strong> – Containing the new variable <strong>GLIDER_VERT_VELO_DZDT</strong> (array-like), with vertical velocities calculated from dz/dt</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>xarray.Dataset</p>
+</dd>
+</dl>
+<p class="rubric">Notes</p>
+<p>Original Author: Eleanor Frajka-Williams</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flightmodels.tools.choose_min_long">
+<span class="sig-prename descclassname"><span class="pre">flightmodels.tools.</span></span><span class="sig-name descname"><span class="pre">choose_min_long</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w_measured</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">divenum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">press</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">whichone</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/tools.html#choose_min_long"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.tools.choose_min_long" title="Link to this definition"></a></dt>
+<dd><p>Compute different minimization metrics for long time-series.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>w_measured</strong> (<em>array-like</em>) – Measured vertical speeds [cm/s].</p></li>
+<li><p><strong>w_model</strong> (<em>array-like</em>) – Modeled vertical speeds [cm/s].</p></li>
+<li><p><strong>time</strong> (<em>array-like</em>) – Time array [seconds or days].</p></li>
+<li><p><strong>divenum</strong> (<em>array-like</em>) – Dive number array.</p></li>
+<li><p><strong>updn</strong> (<em>array-like</em>) – Up or down flag.</p></li>
+<li><p><strong>press</strong> (<em>array-like</em>) – Pressure measurements [dbar].</p></li>
+<li><p><strong>whichone</strong> (<em>int</em>) – Choice of metric.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>allmin</strong> – Dictionary of metrics.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>dict</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flightmodels.tools.choose_min_prof">
+<span class="sig-prename descclassname"><span class="pre">flightmodels.tools.</span></span><span class="sig-name descname"><span class="pre">choose_min_prof</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wspdg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">timeg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mld</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">divenumg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updng</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pgrid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">whichone</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">plotflag</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/tools.html#choose_min_prof"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.tools.choose_min_prof" title="Link to this definition"></a></dt>
+<dd><p>Choose minimization metric based on gridded profiles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wg</strong> (<em>ndarray</em>) – Measured vertical speeds binned on grid.</p></li>
+<li><p><strong>wspdg</strong> (<em>ndarray</em>) – Modeled vertical speeds binned on grid.</p></li>
+<li><p><strong>timeg</strong> (<em>ndarray</em>) – Gridded time.</p></li>
+<li><p><strong>mld</strong> (<em>ndarray</em>) – Mixed layer depth estimates.</p></li>
+<li><p><strong>divenumg</strong> (<em>ndarray</em>) – Dive number array corresponding to grid.</p></li>
+<li><p><strong>updng</strong> (<em>ndarray</em>) – Up/down indicator corresponding to grid.</p></li>
+<li><p><strong>pgrid</strong> (<em>ndarray</em>) – Pressure bin grid [dbar].</p></li>
+<li><p><strong>whichone</strong> (<em>int</em>) – Metric selector (5–8).</p></li>
+<li><p><strong>plotflag</strong> (<em>int</em><em>, </em><em>optional</em>) – If &gt;0, makes a plot.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>allmin</strong> (<em>dict</em>) – Dictionary of minimization metric(s).</p></li>
+<li><p><strong>tmp</strong> (<em>array</em>) – Profile-wise differences (typically dive-climb).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flightmodels.tools.compute_insitu_density">
+<span class="sig-prename descclassname"><span class="pre">flightmodels.tools.</span></span><span class="sig-name descname"><span class="pre">compute_insitu_density</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">salinity</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">temperature</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">longitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">latitude</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/tools.html#compute_insitu_density"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.tools.compute_insitu_density" title="Link to this definition"></a></dt>
+<dd><p>Compute in-situ density from salinity, temperature, and pressure using GSW.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>salinity</strong> (<em>array-like</em>) – Practical salinity (PSU).</p></li>
+<li><p><strong>temperature</strong> (<em>array-like</em>) – In-situ temperature (°C).</p></li>
+<li><p><strong>pressure</strong> (<em>array-like</em>) – Pressure (dbar).</p></li>
+<li><p><strong>longitude</strong> (<em>array-like</em><em>, </em><em>optional</em>) – Longitude (degrees East). If not provided, defaults to -40°.</p></li>
+<li><p><strong>latitude</strong> (<em>array-like</em><em>, </em><em>optional</em>) – Latitude (degrees North). If not provided, defaults to 30°.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>density</strong> – In-situ density (kg/m³).</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>array-like</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
 <dt class="sig sig-object py" id="flightmodels.tools.convert_units_var">
 <span class="sig-prename descclassname"><span class="pre">flightmodels.tools.</span></span><span class="sig-name descname"><span class="pre">convert_units_var</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var_values</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">current_unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">new_unit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unit_conversion</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{'Celsius':</span> <span class="pre">{'factor':</span> <span class="pre">1,</span> <span class="pre">'units_name':</span> <span class="pre">'degrees_Celsius'},</span> <span class="pre">'Pa':</span> <span class="pre">{'factor':</span> <span class="pre">0.0001,</span> <span class="pre">'units_name':</span> <span class="pre">'dbar'},</span> <span class="pre">'S</span> <span class="pre">m-1':</span> <span class="pre">{'factor':</span> <span class="pre">0.1,</span> <span class="pre">'units_name':</span> <span class="pre">'mS</span> <span class="pre">cm-1'},</span> <span class="pre">'S/m':</span> <span class="pre">{'factor':</span> <span class="pre">0.1,</span> <span class="pre">'units_name':</span> <span class="pre">'mS/cm'},</span> <span class="pre">'cm':</span> <span class="pre">{'factor':</span> <span class="pre">0.01,</span> <span class="pre">'units_name':</span> <span class="pre">'m'},</span> <span class="pre">'cm</span> <span class="pre">s-1':</span> <span class="pre">{'factor':</span> <span class="pre">0.01,</span> <span class="pre">'units_name':</span> <span class="pre">'m</span> <span class="pre">s-1'},</span> <span class="pre">'cm/s':</span> <span class="pre">{'factor':</span> <span class="pre">0.01,</span> <span class="pre">'units_name':</span> <span class="pre">'m/s'},</span> <span class="pre">'dbar':</span> <span class="pre">{'factor':</span> <span class="pre">10000,</span> <span class="pre">'units_name':</span> <span class="pre">'Pa'},</span> <span class="pre">'degrees_Celsius':</span> <span class="pre">{'factor':</span> <span class="pre">1,</span> <span class="pre">'units_name':</span> <span class="pre">'Celsius'},</span> <span class="pre">'g</span> <span class="pre">m-3':</span> <span class="pre">{'factor':</span> <span class="pre">0.001,</span> <span class="pre">'units_name':</span> <span class="pre">'kg</span> <span class="pre">m-3'},</span> <span class="pre">'kg</span> <span class="pre">m-3':</span> <span class="pre">{'factor':</span> <span class="pre">1000,</span> <span class="pre">'units_name':</span> <span class="pre">'g</span> <span class="pre">m-3'},</span> <span class="pre">'km':</span> <span class="pre">{'factor':</span> <span class="pre">1000,</span> <span class="pre">'units_name':</span> <span class="pre">'m'},</span> <span class="pre">'m':</span> <span class="pre">{'factor':</span> <span class="pre">100,</span> <span class="pre">'units_name':</span> <span class="pre">'cm'},</span> <span class="pre">'m</span> <span class="pre">s-1':</span> <span class="pre">{'factor':</span> <span class="pre">100,</span> <span class="pre">'units_name':</span> <span class="pre">'cm</span> <span class="pre">s-1'},</span> <span class="pre">'m/s':</span> <span class="pre">{'factor':</span> <span class="pre">100,</span> <span class="pre">'units_name':</span> <span class="pre">'cm/s'},</span> <span class="pre">'mS</span> <span class="pre">cm-1':</span> <span class="pre">{'factor':</span> <span class="pre">10,</span> <span class="pre">'units_name':</span> <span class="pre">'S</span> <span class="pre">m-1'},</span> <span class="pre">'mS/cm':</span> <span class="pre">{'factor':</span> <span class="pre">10,</span> <span class="pre">'units_name':</span> <span class="pre">'S/m'}}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/tools.html#convert_units_var"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.tools.convert_units_var" title="Link to this definition"></a></dt>
 <dd><p>Convert the units of variables in an xarray Dataset to preferred units.  This is useful, for instance, to convert cm/s to m/s.</p>
@@ -288,6 +422,130 @@ it converts the invalid attributes to strings and retries the save operation.</p
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The dataset with converted units.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flightmodels.tools.cum_ttest">
+<span class="sig-prename descclassname"><span class="pre">flightmodels.tools.</span></span><span class="sig-name descname"><span class="pre">cum_ttest</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ndof</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">p</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/tools.html#cum_ttest"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.tools.cum_ttest" title="Link to this definition"></a></dt>
+<dd><p>Approximate cumulative Student’s t-test value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ndof</strong> (<em>int</em>) – Degrees of freedom.</p></li>
+<li><p><strong>p</strong> (<em>float</em>) – Confidence level (e.g., 95).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>tval</strong> – t-distribution value corresponding to p and ndof.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flightmodels.tools.gridthem">
+<span class="sig-prename descclassname"><span class="pre">flightmodels.tools.</span></span><span class="sig-name descname"><span class="pre">gridthem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w_measured</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">divenum</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">press</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pgrid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/tools.html#gridthem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.tools.gridthem" title="Link to this definition"></a></dt>
+<dd><p>Bin average vertical speeds into pressure bins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>w_measured</strong> (<em>array</em>)</p></li>
+<li><p><strong>w_model</strong> (<em>array</em>)</p></li>
+<li><p><strong>time</strong> (<em>array</em>)</p></li>
+<li><p><strong>divenum</strong> (<em>array</em>)</p></li>
+<li><p><strong>updn</strong> (<em>array</em>)</p></li>
+<li><p><strong>press</strong> (<em>array</em>)</p></li>
+<li><p><strong>pgrid</strong> (<em>array</em>) – Pressure grid.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>wg</strong> (<em>array</em>) – Binned measured w.</p></li>
+<li><p><strong>wspdg</strong> (<em>array</em>) – Binned modeled w.</p></li>
+<li><p><strong>timeg</strong> (<em>array</em>) – Binned times.</p></li>
+<li><p><strong>divenumg</strong> (<em>array</em>) – Binned dive numbers.</p></li>
+<li><p><strong>updng</strong> (<em>array</em>) – Binned up/down flags.</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flightmodels.tools.ml_coord">
+<span class="sig-prename descclassname"><span class="pre">flightmodels.tools.</span></span><span class="sig-name descname"><span class="pre">ml_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wspdg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pgrid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mld</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">minmld</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">40</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/tools.html#ml_coord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.tools.ml_coord" title="Link to this definition"></a></dt>
+<dd><p>Compute means and variances for mixed-layer segments of profiles.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>wg</strong> (<em>ndarray</em>) – Measured vertical speeds gridded (profiles x pressure levels).</p></li>
+<li><p><strong>wspdg</strong> (<em>ndarray</em>) – Modeled vertical speeds gridded (profiles x pressure levels).</p></li>
+<li><p><strong>pgrid</strong> (<em>ndarray</em>) – Pressure grid [dbar].</p></li>
+<li><p><strong>mld</strong> (<em>ndarray</em>) – Mixed layer depth estimates [dbar] (one per profile).</p></li>
+<li><p><strong>minmld</strong> (<em>float</em><em>, </em><em>optional</em>) – Minimum mixed layer depth to use [dbar] (default 40 dbar).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>wmean</strong> (<em>ndarray</em>) – Mean vertical speed difference within ML for each profile.</p></li>
+<li><p><strong>wsqr</strong> (<em>ndarray</em>) – RMS vertical speed difference within ML for each profile.</p></li>
+<li><p><strong>h</strong> (<em>ndarray</em>) – Mixed layer depth used per profile [dbar].</p></li>
+<li><p><strong>hgrid</strong> (<em>ndarray</em>) – Scaled pressure bin array (zgrid) [0-1].</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flightmodels.tools.ramsey_binavg">
+<span class="sig-prename descclassname"><span class="pre">flightmodels.tools.</span></span><span class="sig-name descname"><span class="pre">ramsey_binavg</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ww</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zgrid</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dall</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/tools.html#ramsey_binavg"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.tools.ramsey_binavg" title="Link to this definition"></a></dt>
+<dd><p>Perform bin-averaging of vertical speed offsets over pressure bins.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pressure</strong> (<em>array-like</em>) – Pressure measurements [dbar].</p></li>
+<li><p><strong>ww</strong> (<em>array-like</em>) – Vertical speed difference (measured - modeled) [cm/s].</p></li>
+<li><p><strong>zgrid</strong> (<em>array-like</em>) – Grid of pressure bin edges [dbar].</p></li>
+<li><p><strong>dall</strong> (<em>array-like</em><em>, </em><em>optional</em>) – Dive number array to account for degrees of freedom (default None).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>meanw</strong> (<em>np.ndarray</em>) – Mean vertical speed in each bin [cm/s].</p></li>
+<li><p><strong>zbin</strong> (<em>np.ndarray</em>) – Midpoint pressure for each bin [dbar].</p></li>
+<li><p><strong>NNz</strong> (<em>np.ndarray</em>) – Number of points in each bin.</p></li>
+<li><p><strong>CIpm</strong> (<em>np.ndarray, optional</em>) – Confidence interval around mean (NaN if dall not provided).</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="flightmodels.tools.ramsey_offset">
+<span class="sig-prename descclassname"><span class="pre">flightmodels.tools.</span></span><span class="sig-name descname"><span class="pre">ramsey_offset</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">w_measured</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">w_model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">updn</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pressure</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">zgrid</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/flightmodels/tools.html#ramsey_offset"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#flightmodels.tools.ramsey_offset" title="Link to this definition"></a></dt>
+<dd><p>Calculate Ramsey offset misfit between measured and modeled vertical speeds.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>w_measured</strong> (<em>array-like</em>) – Measured vertical speeds [cm/s].</p></li>
+<li><p><strong>w_model</strong> (<em>array-like</em>) – Modeled vertical speeds [cm/s].</p></li>
+<li><p><strong>updn</strong> (<em>array-like</em>) – Up/down flag (positive = climb, negative = dive).</p></li>
+<li><p><strong>pressure</strong> (<em>array-like</em>) – Pressure [dbar] corresponding to each measurement.</p></li>
+<li><p><strong>zgrid</strong> (<em>array-like</em>) – Pressure bin edges for averaging [dbar].</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><strong>allmin</strong> (<em>dict</em>) – Dictionary containing ‘ramsey’ WRMS value.</p></li>
+<li><p><strong>tmp</strong> (<em>array-like</em>) – Difference between mean dive and mean climb profiles [cm/s].</p></li>
+</ul>
+</p>
 </dd>
 </dl>
 </dd></dl>
