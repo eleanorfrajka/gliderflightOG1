@@ -13,8 +13,7 @@ log = logger.log
 
 
 def _check_necessary_variables(ds: xr.Dataset, vars: list):
-    """
-    Checks that all of a list of variables are present in a dataset.
+    """Checks that all of a list of variables are present in a dataset.
 
     Parameters
     ----------
@@ -31,6 +30,7 @@ def _check_necessary_variables(ds: xr.Dataset, vars: list):
     Notes
     -----
     Original Author: Callum Rollo
+
     """
     missing_vars = set(vars).difference(set(ds.variables))
     if missing_vars:

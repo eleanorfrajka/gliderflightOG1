@@ -46,8 +46,7 @@ unit_str_format = {
 def compute_insitu_density(
     salinity, temperature, pressure, longitude=None, latitude=None
 ):
-    """
-    Compute in-situ density from salinity, temperature, and pressure using GSW.
+    """Compute in-situ density from salinity, temperature, and pressure using GSW.
 
     Parameters
     ----------
@@ -66,8 +65,8 @@ def compute_insitu_density(
     -------
     density : array-like
         In-situ density (kg/m³).
-    """
 
+    """
     # If longitude and latitude are not provided, use dummy values
     if longitude is None:
         longitude = np.full_like(pressure, -40.0)
@@ -87,8 +86,7 @@ def compute_insitu_density(
 
 
 def calc_w_meas(ds):
-    """
-    Calculates the vertical velocity of a glider using changes in pressure with time.
+    """Calculates the vertical velocity of a glider using changes in pressure with time.
 
     Parameters
     ----------
@@ -101,8 +99,9 @@ def calc_w_meas(ds):
         Containing the new variable **GLIDER_VERT_VELO_DZDT** (array-like), with vertical velocities calculated from dz/dt
 
     Notes
-    ------
+    -----
     Original Author: Eleanor Frajka-Williams
+
     """
     utilities._check_necessary_variables(ds, ["TIME"])
     # Ensure inputs are numpy arrays
@@ -148,8 +147,7 @@ def calc_w_meas(ds):
 
 
 def gridthem(w_measured, w_model, time, divenum, updn, press, pgrid):
-    """
-    Bin average vertical speeds into pressure bins.
+    """Bin average vertical speeds into pressure bins.
 
     Parameters
     ----------
@@ -174,6 +172,7 @@ def gridthem(w_measured, w_model, time, divenum, updn, press, pgrid):
         Binned dive numbers.
     updng : array
         Binned up/down flags.
+
     """
 
     def bin_avg(segP, segD, pgrid):
@@ -201,8 +200,7 @@ def gridthem(w_measured, w_model, time, divenum, updn, press, pgrid):
 
 
 def ml_coord(wg, wspdg, pgrid, mld, minmld=40):
-    """
-    Compute means and variances for mixed-layer segments of profiles.
+    """Compute means and variances for mixed-layer segments of profiles.
 
     Parameters
     ----------
@@ -227,8 +225,8 @@ def ml_coord(wg, wspdg, pgrid, mld, minmld=40):
         Mixed layer depth used per profile [dbar].
     hgrid : ndarray
         Scaled pressure bin array (zgrid) [0-1].
-    """
 
+    """
     nprofiles, nlevels = wg.shape
     wmean = np.full(nprofiles, np.nan)
     wsqr = np.full(nprofiles, np.nan)
@@ -251,8 +249,7 @@ def ml_coord(wg, wspdg, pgrid, mld, minmld=40):
 
 
 def bl_coord(wg, wspdg, pgrid, mld):
-    """
-    Compute means for below-mixed-layer segments of profiles.
+    """Compute means for below-mixed-layer segments of profiles.
 
     Parameters
     ----------
@@ -269,8 +266,8 @@ def bl_coord(wg, wspdg, pgrid, mld):
     -------
     wmean : ndarray
         Mean difference (wspdg - wg) below mixed layer, per profile.
-    """
 
+    """
     nprofiles, nlevels = wg.shape
     wmean = np.full(nprofiles, np.nan)
 
@@ -289,8 +286,7 @@ def bl_coord(wg, wspdg, pgrid, mld):
 def choose_min_prof(
     wg, wspdg, timeg, mld, divenumg, updng, pgrid, whichone, plotflag=0
 ):
-    """
-    Choose minimization metric based on gridded profiles.
+    """Choose minimization metric based on gridded profiles.
 
     Parameters
     ----------
@@ -319,8 +315,8 @@ def choose_min_prof(
         Dictionary of minimization metric(s).
     tmp : array
         Profile-wise differences (typically dive-climb).
-    """
 
+    """
     w_water = wspdg - wg
     allmin = {}
 
@@ -424,8 +420,7 @@ def choose_min_prof(
 
 
 def choose_min_long(w_measured, w_model, time, divenum, updn, press, whichone):
-    """
-    Compute different minimization metrics for long time-series.
+    """Compute different minimization metrics for long time-series.
 
     Parameters
     ----------
@@ -448,6 +443,7 @@ def choose_min_long(w_measured, w_model, time, divenum, updn, press, whichone):
     -------
     allmin : dict
         Dictionary of metrics.
+
     """
     w_water = w_model - w_measured
     allmin = {}
@@ -492,8 +488,7 @@ def choose_min_long(w_measured, w_model, time, divenum, updn, press, whichone):
 
 
 def ramsey_binavg(pressure, ww, zgrid, dall=None):
-    """
-    Perform bin-averaging of vertical speed offsets over pressure bins.
+    """Perform bin-averaging of vertical speed offsets over pressure bins.
 
     Parameters
     ----------
@@ -516,8 +511,8 @@ def ramsey_binavg(pressure, ww, zgrid, dall=None):
         Number of points in each bin.
     CIpm : np.ndarray, optional
         Confidence interval around mean (NaN if dall not provided).
-    """
 
+    """
     nbin = len(zgrid) - 1
     meanw = np.full(nbin, np.nan)
     NNz = np.zeros(nbin, dtype=int)
@@ -552,8 +547,7 @@ def ramsey_binavg(pressure, ww, zgrid, dall=None):
 
 
 def cum_ttest(ndof, p):
-    """
-    Approximate cumulative Student's t-test value.
+    """Approximate cumulative Student's t-test value.
 
     Parameters
     ----------
@@ -566,6 +560,7 @@ def cum_ttest(ndof, p):
     -------
     tval : float
         t-distribution value corresponding to p and ndof.
+
     """
     from scipy.stats import t
 
@@ -574,8 +569,7 @@ def cum_ttest(ndof, p):
 
 
 def ramsey_offset(w_measured, w_model, updn, pressure, zgrid):
-    """
-    Calculate Ramsey offset misfit between measured and modeled vertical speeds.
+    """Calculate Ramsey offset misfit between measured and modeled vertical speeds.
 
     Parameters
     ----------
@@ -596,8 +590,8 @@ def ramsey_offset(w_measured, w_model, updn, pressure, zgrid):
         Dictionary containing 'ramsey' WRMS value.
     tmp : array-like
         Difference between mean dive and mean climb profiles [cm/s].
-    """
 
+    """
     # Find indices of climbing and diving parts
     iup = np.where(updn > 0)[0]
     idn = np.where(updn < 0)[0]
@@ -619,8 +613,7 @@ def ramsey_offset(w_measured, w_model, updn, pressure, zgrid):
 
 
 def reformat_units_var(ds, var_name, unit_format=unit_str_format):
-    """
-    Renames units in the dataset based on the provided dictionary for OG1.
+    """Renames units in the dataset based on the provided dictionary for OG1.
 
     Parameters
     ----------
@@ -630,6 +623,7 @@ def reformat_units_var(ds, var_name, unit_format=unit_str_format):
     Returns
     -------
     xarray.Dataset: The dataset with renamed units.
+
     """
     old_unit = ds[var_name].attrs["units"]
     if old_unit in unit_format:
@@ -642,8 +636,7 @@ def reformat_units_var(ds, var_name, unit_format=unit_str_format):
 def convert_units_var(
     var_values, current_unit, new_unit, unit_conversion=unit_conversion
 ):
-    """
-    Convert the units of variables in an xarray Dataset to preferred units.  This is useful, for instance, to convert cm/s to m/s.
+    """Convert the units of variables in an xarray Dataset to preferred units.  This is useful, for instance, to convert cm/s to m/s.
 
     Parameters
     ----------
@@ -657,6 +650,7 @@ def convert_units_var(
     Returns
     -------
     xarray.Dataset: The dataset with converted units.
+
     """
     if (
         current_unit in unit_conversion

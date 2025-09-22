@@ -7,8 +7,7 @@ import numpy as np
 def save_dataset(
     ds, output_file="../data/test.nc", delete_existing=False, prompt_user=True
 ):
-    """
-    Attempts to save the dataset to a NetCDF file. If a TypeError occurs due to invalid attribute values,
+    """Attempts to save the dataset to a NetCDF file. If a TypeError occurs due to invalid attribute values,
     it converts the invalid attributes to strings and retries the save operation.
 
     Parameters
@@ -23,6 +22,7 @@ def save_dataset(
     bool: True if the dataset was saved successfully, False otherwise.
 
     Based on: https://github.com/pydata/xarray/issues/3743
+
     """
     output_path = Path(output_file)
     if output_path.exists():
