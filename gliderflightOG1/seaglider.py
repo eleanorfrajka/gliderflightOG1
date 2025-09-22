@@ -16,10 +16,10 @@ _optimization_progress = []
 
 def calc_buoyancy(ds: xr.Dataset) -> np.ndarray:
     """Calculate glider buoyancy from OG1 dataset following MATLAB implementation.
-    
+
     Calculates buoyancy as: buoy = kg2g * (-mass + density_insitu * vol * (cm2m)^3)
     where vol includes VBD corrections, compression, and thermal expansion effects.
-    
+
     Parameters
     ----------
     ds : xr.Dataset
@@ -27,51 +27,53 @@ def calc_buoyancy(ds: xr.Dataset) -> np.ndarray:
         - Variables: VBD, C_VBD, PRES (or DEPTH), TEMP, PSAL
         - Attributes: vbdbias, volmax, vbd_min_cnts, vbd_cnts_per_cc,
                      abs_compress, therm_expan, temp_ref, mass
-        
+
     Returns
     -------
     np.ndarray
         Buoyancy in grams
     """
     # Get glider parameters from dataset attributes
-    vbdbias = ds.attrs['vbdbias']
-    volmax = ds.attrs['volmax']
-    vbd_min_cnts = ds.attrs['vbd_min_cnts']
-    vbd_cnts_per_cc = ds.attrs['vbd_cnts_per_cc']
-    abs_compress = ds.attrs['abs_compress']
-    therm_expan = ds.attrs['therm_expan']
-    temp_ref = ds.attrs['temp_ref']
-    mass = ds.attrs['mass']
-    
+    vbdbias = ds.attrs["vbdbias"]
+    volmax = ds.attrs["volmax"]
+    vbd_min_cnts = ds.attrs["vbd_min_cnts"]
+    vbd_cnts_per_cc = ds.attrs["vbd_cnts_per_cc"]
+    abs_compress = ds.attrs["abs_compress"]
+    therm_expan = ds.attrs["therm_expan"]
+    temp_ref = ds.attrs["temp_ref"]
+    mass = ds.attrs["mass"]
+
     # Get data arrays
-    vbd = ds['VBD'].values
-    c_vbd = ds['C_VBD'].values
-    press = ds['PRES'].values if 'PRES' in ds else ds['DEPTH'].values
-    temp = ds['TEMP'].values
-    salin = ds['PSAL'].values
-    
+    vbd = ds["VBD"].values
+    c_vbd = ds["C_VBD"].values
+    press = ds["PRES"].values if "PRES" in ds else ds["DEPTH"].values
+    temp = ds["TEMP"].values
+    salin = ds["PSAL"].values
+
     # Get lat/lon for density calculation
-    if 'LATITUDE' in ds and 'LONGITUDE' in ds:
-        lat = ds['LATITUDE'].values.mean()
-        lon = ds['LONGITUDE'].values.mean()
+    if "LATITUDE" in ds and "LONGITUDE" in ds:
+        lat = ds["LATITUDE"].values.mean()
+        lon = ds["LONGITUDE"].values.mean()
     else:
         lat, lon = 0.0, 0.0
-    
+
     # Calculate corrected VBD
     vbdc = vbd - vbdbias
-    
+
     # Calculate volume with VBD, compression, and thermal expansion
     vol0 = volmax + (c_vbd - vbd_min_cnts) / vbd_cnts_per_cc
-    vol = (vol0 + vbdc) * np.exp(-abs_compress * press + therm_expan * (temp - temp_ref))
-    
+    vol = (vol0 + vbdc) * np.exp(
+        -abs_compress * press + therm_expan * (temp - temp_ref)
+    )
+
     # Calculate in-situ density
     density_insitu = tools.compute_insitu_density(salin, temp, press, lat, lon)
-    
+
     # Calculate buoyancy in grams (following MATLAB convention)
     cm2m = 0.01
     kg2g = 1000
-    buoyancy = kg2g * (-mass + density_insitu * vol * (cm2m)**3)
-    
+    buoyancy = kg2g * (-mass + density_insitu * vol * (cm2m) ** 3)
+
     return buoyancy
 
 
@@ -79,7 +81,7 @@ def flightvec_ds(
     ds: xr.Dataset, xl: float, hd_a: float, hd_b: float, hd_c: float
 ) -> xr.Dataset:
     """Run flightvec on an OG1 xarray Dataset.
-    
+
     Parameters
     ----------
     ds : xr.Dataset
@@ -90,26 +92,26 @@ def flightvec_ds(
         Glider length scale (meters)
     hd_a, hd_b, hd_c : float
         Hydrodynamic coefficients
-        
+
     Returns
     -------
     xr.Dataset
         Dataset with added 'umag' (velocity magnitude) and 'thdeg' (glide angle) variables
     """
     from . import utilities
-    
+
     # Validate OG1 variables
-    utilities.check_og1_flight_variables(ds, 'flightvec_ds')
-    
+    utilities.check_og1_flight_variables(ds, "flightvec_ds")
+
     # Calculate or use existing buoyancy
-    if 'BUOYANCY' not in ds:
+    if "BUOYANCY" not in ds:
         buoyancy = calc_buoyancy(ds)
     else:
         buoyancy = ds["BUOYANCY"].values
-    
+
     # Use reference density from attributes
-    rho0 = ds.attrs.get('rho0', 1025.0)
-    
+    rho0 = ds.attrs.get("rho0", 1025.0)
+
     umag, thdeg = flightvec(
         buoyancy,
         ds["PITCH"].values,
@@ -162,7 +164,7 @@ def regress_all_vec(
     """
     global _optimization_progress
     _optimization_progress = []  # Reset progress tracker
-    
+
     print("🚁 Starting Glider Flight Model Parameter Optimization")
     print("=" * 60)
 
@@ -209,34 +211,36 @@ def regress_all_vec(
 
     regressout = result.x
     allwrms = result.fun
-    
+
     # Display final optimization results
     print("\n" + "=" * 60)
     print("🎯 Optimization Complete!")
     print("=" * 60)
-    
+
     # Create summary table
     if _optimization_progress:
         df = pd.DataFrame(_optimization_progress)
         print(f"\n📊 Optimization Progress ({len(df)} iterations):")
         print("-" * 60)
-        
+
         # Display first few, last few, and best iteration
         if len(df) <= 10:
             display_df = df
         else:
             # Show first 3, best, and last 3
-            best_idx = df['WRMS'].idxmin()
-            indices = list(range(3)) + [best_idx] + list(range(len(df)-3, len(df)))
+            best_idx = df["WRMS"].idxmin()
+            indices = list(range(3)) + [best_idx] + list(range(len(df) - 3, len(df)))
             indices = sorted(list(set(indices)))  # Remove duplicates and sort
             display_df = df.iloc[indices].copy()
-            display_df.loc[best_idx, 'Iter'] = f"{best_idx}*"  # Mark best
-        
-        print(display_df.to_string(index=False, float_format='%.4g'))
-        
-        print(f"\n⭐ Best WRMS: {df['WRMS'].min():.6f} (iteration {df['WRMS'].idxmin()})")
-    
-    print(f"\n🏁 Final Result:")
+            display_df.loc[best_idx, "Iter"] = f"{best_idx}*"  # Mark best
+
+        print(display_df.to_string(index=False, float_format="%.4g"))
+
+        print(
+            f"\n⭐ Best WRMS: {df['WRMS'].min():.6f} (iteration {df['WRMS'].idxmin()})"
+        )
+
+    print("\n🏁 Final Result:")
     print(f"   WRMS: {allwrms:.6f}")
     print(f"   Converged: {'✅ Yes' if result.success else '❌ No'}")
     print(f"   Function evaluations: {result.nfev}")
@@ -706,21 +710,23 @@ def f_misfit_all(x, whichpar, glider: xr.Dataset, whichone: int, unstdyflag: int
     # Collect data for progress table
     global _optimization_progress
     iteration = len(_optimization_progress)
-    
+
     progress_row = {
-        'Iter': iteration,
-        'WRMS': wrms,
-        'hd_a': hd_a,
-        'hd_b': hd_b,
-        'vbdbias': vbdbias,
-        'abs_compress': abs_compress,
-        'therm_expan': therm_expan,
-        'hd_c': hd_c
+        "Iter": iteration,
+        "WRMS": wrms,
+        "hd_a": hd_a,
+        "hd_b": hd_b,
+        "vbdbias": vbdbias,
+        "abs_compress": abs_compress,
+        "therm_expan": therm_expan,
+        "hd_c": hd_c,
     }
     _optimization_progress.append(progress_row)
-    
+
     # Display progress every 10 iterations or if it's the first few
     if iteration < 5 or iteration % 10 == 0:
-        print(f"Iter {iteration:3d}: WRMS={wrms:.6f}, hd_a={hd_a:.4g}, hd_b={hd_b:.4g}, vbdbias={vbdbias:.4g}")
+        print(
+            f"Iter {iteration:3d}: WRMS={wrms:.6f}, hd_a={hd_a:.4g}, hd_b={hd_b:.4g}, vbdbias={vbdbias:.4g}"
+        )
 
     return wrms
