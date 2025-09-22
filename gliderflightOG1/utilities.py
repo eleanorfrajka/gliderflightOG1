@@ -11,6 +11,20 @@ from gliderflightOG1.logger import log_debug, log_error, log_info
 
 log = logger.log
 
+# OG1 Variable Requirements for Flight Model Functions
+OG1_FLIGHT_MODEL_VARS = {
+    "flightvec_ds": {
+        "required": ["PITCH", "DEPTH", "TIME"],  # Basic flight model variables
+        "optional": ["BUOYANCY", "RHO0"],  # Can be calculated if missing
+        "description": "Core flight model calculation requiring pitch angle and depth",
+    },
+    "regress_all_vec": {
+        "required": ["PITCH", "DEPTH", "TIME", "DIVENUM", "UPDN"],
+        "optional": ["TEMP", "PSAL", "GLIDER_VERT_VELO_DZDT", "PRES"],
+        "description": "Flight model parameter optimization requiring dive profiles",
+    },
+}
+
 
 def _check_necessary_variables(ds: xr.Dataset, vars: list):
     """Checks that all of a list of variables are present in a dataset.
@@ -36,6 +50,49 @@ def _check_necessary_variables(ds: xr.Dataset, vars: list):
     if missing_vars:
         msg = f"Required variables {list(missing_vars)} do not exist in the supplied dataset."
         raise KeyError(msg)
+
+
+def check_og1_flight_variables(ds: xr.Dataset, function_name: str):
+    """Check that a dataset contains required OG1 variables for flight model functions.
+
+    Parameters
+    ----------
+    ds : xr.Dataset
+        OG1 format glider dataset to validate
+    function_name : str
+        Name of the flight model function (key in OG1_FLIGHT_MODEL_VARS)
+
+    Raises
+    ------
+    KeyError
+        If required variables are missing
+    ValueError
+        If function_name is not recognized
+
+    Returns
+    -------
+    missing_optional : list
+        List of optional variables that are missing (for informational purposes)
+    """
+    if function_name not in OG1_FLIGHT_MODEL_VARS:
+        raise ValueError(
+            f"Unknown function '{function_name}'. Available: {list(OG1_FLIGHT_MODEL_VARS.keys())}"
+        )
+
+    requirements = OG1_FLIGHT_MODEL_VARS[function_name]
+
+    # Check required variables
+    _check_necessary_variables(ds, requirements["required"])
+
+    # Check optional variables (don't raise error, just return list)
+    missing_optional = set(requirements["optional"]).difference(set(ds.variables))
+
+    if missing_optional:
+        log_info(
+            f"Optional variables missing for {function_name}: {list(missing_optional)}"
+        )
+
+    return list(missing_optional)
 
 
 def get_default_data_dir() -> Path:
