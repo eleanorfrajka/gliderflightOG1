@@ -1,6 +1,6 @@
 import numpy as np
 
-from flightmodels import seaglider
+from gliderflightOG1 import seaglider
 
 
 def test_flightvec_basic():
@@ -33,10 +33,8 @@ def test_flightvec_basic():
 
 
 def test_flightvec_unstdy():
+    """Simple test for flightvec_unstdy function.
     """
-    Simple test for flightvec_unstdy function.
-    """
-
     time = np.linspace(0, 1000, 100)  # seconds
     buoy = np.ones(100) * 0.05  # arbitrary buoyancy
     pitch = np.linspace(-30, 30, 100)  # glide from dive to climb

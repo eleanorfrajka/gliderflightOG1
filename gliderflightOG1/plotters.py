@@ -14,8 +14,7 @@ def plot_model_comparisons(
     model_labels: list = None,
     title: str = "",
 ):
-    """
-    Plot measured vs modeled glider speeds for multiple models.
+    """Plot measured vs modeled glider speeds for multiple models.
 
     Parameters
     ----------
@@ -37,8 +36,8 @@ def plot_model_comparisons(
         Labels for model results; if None, keys of models dict are used.
     title : str, optional
         Plot title.
-    """
 
+    """
     # Select subset
     if select_dives is not None:
         selection = glider.where(glider["DIVENUM"].isin(select_dives), drop=True)
@@ -74,21 +73,22 @@ def plot_model_comparisons(
 
 
 def show_variables(data):
-    """
-    Processes an xarray Dataset or a netCDF file, extracts variable information,
+    """Processes an xarray Dataset or a netCDF file, extracts variable information,
     and returns a styled DataFrame with details about the variables.
 
-    Parameters:
+    Parameters
+    ----------
     data (str or xr.Dataset): The input data, either a file path to a netCDF file or an xarray Dataset.
 
-    Returns:
+    Returns
+    -------
     pandas.io.formats.style.Styler: A styled DataFrame containing the following columns:
         - dims: The dimension of the variable (or "string" if it is a string type).
         - name: The name of the variable.
         - units: The units of the variable (if available).
         - comment: Any additional comments about the variable (if available).
-    """
 
+    """
     if isinstance(data, str):
         print("information is based on file: {}".format(data))
         dataset = xr.Dataset(data)
@@ -138,17 +138,19 @@ def show_variables(data):
 
 
 def show_attributes(data):
-    """
-    Processes an xarray Dataset or a netCDF file, extracts attribute information,
+    """Processes an xarray Dataset or a netCDF file, extracts attribute information,
     and returns a DataFrame with details about the attributes.
 
-    Parameters:
+    Parameters
+    ----------
     data (str or xr.Dataset): The input data, either a file path to a netCDF file or an xarray Dataset.
 
-    Returns:
+    Returns
+    -------
     pandas.DataFrame: A DataFrame containing the following columns:
         - Attribute: The name of the attribute.
         - Value: The value of the attribute.
+
     """
     from netCDF4 import Dataset
 

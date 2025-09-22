@@ -1,5 +1,5 @@
 import time
-from flightmodels import logger
+from gliderflightOG1 import logger
 import logging
 
 

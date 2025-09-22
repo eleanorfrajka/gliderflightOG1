@@ -5,7 +5,7 @@ from scipy.integrate import solve_ivp
 from scipy.optimize import minimize
 from scipy.sparse.linalg import splu
 
-from flightmodels import tools
+from gliderflightOG1 import tools
 
 PROFDIFF = None
 
@@ -13,8 +13,7 @@ PROFDIFF = None
 def flightvec_ds(
     ds: xr.Dataset, xl: float, hd_a: float, hd_b: float, hd_c: float
 ) -> xr.Dataset:
-    """
-    Run flightvec on an OG1 xarray Dataset.
+    """Run flightvec on an OG1 xarray Dataset.
     """
     umag, thdeg = flightvec(
         ds["buoyancy"].values,
@@ -37,8 +36,7 @@ def regress_all_vec(
     plotflag: bool = True,
     unstdyflag: int = 0,
 ) -> tuple[np.ndarray, float]:
-    """
-    Solve for glider flight model parameters via minimization.
+    """Solve for glider flight model parameters via minimization.
 
     Parameters
     ----------
@@ -65,6 +63,7 @@ def regress_all_vec(
         Optimized parameter values.
     allwrms : float
         Final minimized value of the misfit function.
+
     """
     print("Doing regress_all_vec")
 
@@ -117,8 +116,7 @@ def regress_all_vec(
 
 # Subfunction: Acceleration equations for glide
 def glide_acc(t, V, t_grid, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, enclosed_mass):
-    """
-    Right-hand side of the unsteady flight ODE system.
+    """Right-hand side of the unsteady flight ODE system.
 
     Parameters
     ----------
@@ -132,6 +130,7 @@ def glide_acc(t, V, t_grid, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, enclosed_ma
     -------
     dV_dt : list
         Derivatives [dVx/dt, dVz/dt].
+
     """
     idx = np.searchsorted(t_grid, t, side="right") - 1
     idx = np.clip(idx, 0, len(t_grid) - 1)
@@ -159,8 +158,7 @@ def glide_acc(t, V, t_grid, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, enclosed_ma
 
 # Main function
 def flightvec_unstdy(time, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, tau0=20, odeFLAG=1):
-    """
-    Solve for glider speed and glide angle considering unsteady effects.
+    """Solve for glider speed and glide angle considering unsteady effects.
 
     Parameters
     ----------
@@ -187,6 +185,7 @@ def flightvec_unstdy(time, buoy, pitch, xl, hd_a, hd_b, hd_c, rho0, tau0=20, ode
         Various computed speeds (steady, unsteady-ODE, unsteady-lag).
     ang : dict
         Various computed glide angles (steady, unsteady-ODE, unsteady-lag).
+
     """
     mytol = 1.2
 
@@ -307,8 +306,7 @@ def flightvec(
     tol: float = 0.001,
     max_iter: int = 15,
 ) -> tuple[np.ndarray, np.ndarray]:
-    """
-    Solve unaccelerated flight equations iteratively for steady-state speed and glide angle.
+    """Solve unaccelerated flight equations iteratively for steady-state speed and glide angle.
 
     Parameters
     ----------
@@ -337,6 +335,7 @@ def flightvec(
         Steady-state speed magnitude (cm/s).
     thdeg : np.ndarray
         Glide angle (degrees).
+
     """
     # Constants
     gravity = 9.82  # gravitational acceleration (m/s²)
@@ -416,8 +415,7 @@ def flightvec(
 
 
 def f_misfit_all(x, whichpar, glider: xr.Dataset, whichone: int, unstdyflag: int):
-    """
-    Misfit function for glider flight model parameter optimization.
+    """Misfit function for glider flight model parameter optimization.
 
     Parameters
     ----------
@@ -436,6 +434,7 @@ def f_misfit_all(x, whichpar, glider: xr.Dataset, whichone: int, unstdyflag: int
     -------
     wrms : float
         Weighted root mean square (or other diagnostic) to be minimized.
+
     """
     global PROFDIFF
 

@@ -1,16 +1,14 @@
 import numpy as np
 import xarray as xr
 
-from flightmodels import tools
+from gliderflightOG1 import tools
 
 
 def test_ml_bl_coord():
-    """
-    Unit test for seaglider.ml_coord() and seaglider.bl_coord().
+    """Unit test for seaglider.ml_coord() and seaglider.bl_coord().
 
     Creates synthetic glider profile data and verifies basic functionality.
     """
-
     # Create synthetic dataset
     nprofiles = 5
     ndepths = 20

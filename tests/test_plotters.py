@@ -2,7 +2,7 @@ import xarray as xr
 from pandas.io.formats.style import Styler
 from pandas import DataFrame
 
-from flightmodels import plotters
+from gliderflightOG1 import plotters
 
 
 def test_show_variables_returns_styler():

@@ -6,15 +6,14 @@ from urllib.parse import urlparse
 import xarray as xr
 import requests
 
-from flightmodels import logger
-from flightmodels.logger import log_debug, log_error, log_info
+from gliderflightOG1 import logger
+from gliderflightOG1.logger import log_debug, log_error, log_info
 
 log = logger.log
 
 
 def _check_necessary_variables(ds: xr.Dataset, vars: list):
-    """
-    Checks that all of a list of variables are present in a dataset.
+    """Checks that all of a list of variables are present in a dataset.
 
     Parameters
     ----------
@@ -31,6 +30,7 @@ def _check_necessary_variables(ds: xr.Dataset, vars: list):
     Notes
     -----
     Original Author: Callum Rollo
+
     """
     missing_vars = set(vars).difference(set(ds.variables))
     if missing_vars:

@@ -1,6 +1,6 @@
 import pytest
 
-from flightmodels import logger, readers
+from gliderflightOG1 import logger, readers
 
 logger.disable_logging()
 

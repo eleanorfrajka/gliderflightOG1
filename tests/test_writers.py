@@ -1,7 +1,7 @@
 import numpy as np
 import xarray as xr
 
-from flightmodels.writers import save_dataset
+from gliderflightOG1.writers import save_dataset
 
 
 def create_dummy_dataset():
