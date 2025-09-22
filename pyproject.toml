@@ -7,7 +7,7 @@ requires = [
 ]
 
 [project]
-name = "flightmodels"
+name = "gliderflightOG1"
 description = "Software to run glider flight models on OG1 format data."
 readme = "README.md"
 license = { file = "LICENSE" }
@@ -26,14 +26,14 @@ dynamic = [
   "dependencies",
   "version",
 ]
-urls.documentation = "https://github.com/eleanorfrajka/flightmodels"
-urls.homepage = "https://github.com/eleanorfrajka/flightmodels"
-urls.repository = "https://github.com/eleanorfrajka/flightmodels"
+urls.documentation = "https://github.com/eleanorfrajka/gliderflightOG1"
+urls.homepage = "https://github.com/eleanorfrajka/gliderflightOG1"
+urls.repository = "https://github.com/eleanorfrajka/gliderflightOG1"
 
 
 [tool.setuptools.packages.find]
 where = ["."]
-include = ["flightmodels"]
+include = ["gliderflightOG1"]
 
 [tool.setuptools.dynamic]
 dependencies = { file = [
@@ -42,7 +42,7 @@ dependencies = { file = [
 readme = { file = "README.md", content-type = "text/markdown" }
 
 [tool.setuptools_scm]
-write_to = "flightmodels/_version.py"
+write_to = "gliderflightOG1/_version.py"
 write_to_template = "__version__ = '{version}'"
 tag_regex = "^(?P<prefix>v)?(?P<version>[^\\+]+)(?P<suffix>.*)?$"
 version_scheme = "no-guess-dev"

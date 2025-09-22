@@ -1,6 +1,6 @@
 import numpy as np
 
-from flightmodels import seaglider
+from gliderflightOG1 import seaglider
 
 
 def test_flightvec_basic():

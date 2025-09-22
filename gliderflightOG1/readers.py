@@ -4,8 +4,8 @@ from typing import Union
 import pandas as pd
 import xarray as xr
 
-from flightmodels import logger
-from flightmodels.logger import log_info
+from gliderflightOG1 import logger
+from gliderflightOG1.logger import log_info
 
 log = logger.log
 

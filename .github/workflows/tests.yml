@@ -20,26 +20,30 @@ jobs:
       run:
         shell: bash -l {0}
     steps:
-    - name: Run a one-line script
-      run: echo "The job was automatically triggered by a ${{ github.event_name }} event."
-    - uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v4
 
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v2
+      - name: Setup Micromamba
+        uses: mamba-org/setup-micromamba@v2
+        with:
+          environment-file: environment.yml
+          init-shell: bash
+          condarc: |
+            channels:
+              - conda-forge
+            channel_priority: strict
+          cache-environment: true
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        python -m pip install flake8 pytest
-        if [ -f requirements-dev.txt ]; then pip install -r requirements-dev.txt; fi
+      - name: Install package (editable)
+        shell: bash -l {0}
+        run: |
+          micromamba run -n gliderflightOG1 python -m pip install --upgrade pip
+          micromamba run -n gliderflightOG1 python -m pip install -e . --no-deps --force-reinstall
 
-    - name: Install project locally
-      run: |
-        python -m pip install -e . --no-deps --force-reinstall
-
-    - name: Test with pytest
-      run: |
-        pytest
+      - name: Test with pytest
+        shell: bash -l {0}
+        run: |
+          micromamba run -n gliderflightOG1 pytest
 
 # Use the below code after deploying a release
 #    - name: Setup Micromamba Python ${{ matrix.python-version }}

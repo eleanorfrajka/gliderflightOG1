@@ -3,7 +3,7 @@ import logging
 
 import numpy as np
 import gsw
-from flightmodels import utilities
+from gliderflightOG1 import utilities
 
 # Initialize logging
 _log = logging.getLogger(__name__)

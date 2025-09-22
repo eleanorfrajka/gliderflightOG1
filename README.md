@@ -1,9 +1,9 @@
-# flightmodels
+# gliderflightOG1
 
 This is a starting point for thinking about running glider flight models on data in OG1 format.
 
 📘 Documentation is available at:
-👉 https://eleanorfrajka.github.io/flightmodels/
+👉 https://eleanorfrajka.github.io/gliderflightOG1/
 
 Originating from conversations associated with the "vertical velocities" group at [OceanGlidersCommunity](https://github.com/OceanGlidersCommunity/Vertical_Velocities_SOP).  If/when this package is in good shape, it could be transferred to http://github.com/OceanGlidersCommunity or some other relevant organisation.
 
@@ -11,7 +11,7 @@ Originating from conversations associated with the "vertical velocities" group a
 
 ## 🚀 What's Included
 
-- ✅ Python package layout: `flightmodels/*.py`
+- ✅ Python package layout: `gliderflightOG1/*.py`
 - 📓 Jupyter notebook demo: `notebooks/demo.ipynb`
 - 📄 Markdown and Sphinx-based documentation in `docs/`
 - 🔍 Tests with `pytest` in `tests/`, CI with GitHub Actions
@@ -26,8 +26,8 @@ Originating from conversations associated with the "vertical velocities" group a
 Install in development mode:
 
 ```bash
-git clone https://github.com/eleanorfrajka/flightmodels.git
-cd flightmodels
+git clone https://github.com/eleanorfrajka/gliderflightOG1.git
+cd gliderflightOG1
 python -m venv venv       # if you manage environments with venv
 source venv/bin/activate  # if you manage environments with venv
 pip install -r requirements-dev.txt

@@ -5,7 +5,7 @@ from scipy.integrate import solve_ivp
 from scipy.optimize import minimize
 from scipy.sparse.linalg import splu
 
-from flightmodels import tools
+from gliderflightOG1 import tools
 
 PROFDIFF = None
 

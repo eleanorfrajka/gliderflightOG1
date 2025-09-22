@@ -1,7 +1,7 @@
 import numpy as np
 import xarray as xr
 
-from flightmodels import tools
+from gliderflightOG1 import tools
 
 
 def test_ml_bl_coord():

@@ -2,7 +2,7 @@ from pathlib import Path
 
 import xarray as xr
 
-from flightmodels import logger, utilities
+from gliderflightOG1 import logger, utilities
 
 
 logger.disable_logging()
