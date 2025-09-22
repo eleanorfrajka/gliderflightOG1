@@ -51,7 +51,7 @@ make html
 
 ## 🤝 Contributing
 
-Contributions are welcome!  Please also consider adding an [issue](https://github.com/eleanorfrajka/flightmodels/issues) when something isn't clear.
+Contributions are welcome!  Please also consider adding an [issue](https://github.com/eleanorfrajka/gliderflightOG1/issues) when something isn't clear.
 
 ---
 
