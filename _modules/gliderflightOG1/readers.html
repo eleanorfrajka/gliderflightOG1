@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>flightmodels.readers &mdash; flightmodels v0.0.0 documentation</title>
+  <title>gliderflightOG1.readers &mdash; gliderflightOG1 v0.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=20758594" />
@@ -31,7 +31,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            flightmodels
+            gliderflightOG1
               <img src="../../_static/logo_seaglider.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
@@ -56,8 +56,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Help and reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="http://github.com/eleanorfrajka/flightmodels">GitHub Repo</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flightmodels.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">flightmodels</span> <span class="pre">API</span></code></a></li>
+<li class="toctree-l1"><a class="reference external" href="http://github.com/eleanorfrajka/gliderflightOG1">GitHub Repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gliderflightOG1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gliderflightOG1</span> <span class="pre">API</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ / Troubleshooting</a></li>
 </ul>
 
@@ -67,7 +67,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">flightmodels</a>
+          <a href="../../index.html">gliderflightOG1</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -76,7 +76,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">flightmodels.readers</li>
+      <li class="breadcrumb-item active">gliderflightOG1.readers</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,21 +85,21 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for flightmodels.readers</h1><div class="highlight"><pre>
+  <h1>Source code for gliderflightOG1.readers</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">flightmodels</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">flightmodels.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_info</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gliderflightOG1</span><span class="w"> </span><span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gliderflightOG1.logger</span><span class="w"> </span><span class="kn">import</span> <span class="n">log_info</span>
 
 <span class="n">log</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">log</span>
 
 
 <div class="viewcode-block" id="load_sample_dataset">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.readers.load_sample_dataset">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.readers.load_sample_dataset">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_sample_dataset</span><span class="p">(</span><span class="n">array_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;rapid&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Load a sample dataset for quick testing.</span>
 
@@ -143,7 +143,7 @@
 
 
 <div class="viewcode-block" id="load_dataset">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.readers.load_dataset">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.readers.load_dataset">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">load_dataset</span><span class="p">(</span>
     <span class="n">array_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
     <span class="n">source</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>

@@ -1,6 +1,6 @@
-# What’s in flightmodels?
+# What's in gliderflightOG1?
 
-Below is an overview of the files and folders you’ll find in the `flightmodels`, along with what they do and why they’re useful. If you're new to GitHub or Python packaging, this is your orientation.
+Below is an overview of the files and folders you'll find in the `gliderflightOG1`, along with what they do and why they're useful. If you're new to GitHub or Python packaging, this is your orientation.
 
 ---
 
@@ -8,13 +8,13 @@ Below is an overview of the files and folders you’ll find in the `flightmodels
 
 📷 *This is what the package looks like when you clone or fork it:*
 
-# 📁 `flightmodels` File Structure
+# 📁 `gliderflightOG1` File Structure
 
 A minimal, modular Python project structure for collaborative research and reproducible workflows.
 
 ```
-flightmodels/
-├── flightmodels                  # [core] Main Python package with scientific code
+gliderflightOG1/
+├── gliderflightOG1               # [core] Main Python package with scientific code
 │   ├── __init__.py               # [core] Makes this a Python package
 │   ├── plotters.py               # [core] Functions to plot data
 │   ├── readers.py                # [core] Functions to read raw data into xarray datasets
@@ -22,7 +22,7 @@ flightmodels/
 │   ├── writers.py                # [core] Functions to write data (e.g., to NetCDF)
 │   ├── tools.py                  # [core] Utilities for unit conversion, calculations, etc.
 │   ├── logger.py                 # [core] Structured logging configuration for reproducible runs
-│   ├── flightmodels.mplstyle     # [core] Default plotting parameters
+│   ├── gliderflightOG1.mplstyle  # [core] Default plotting parameters
 │   └── utilities.py              # [core] Helper functions (e.g., file download or parsing)
 │
 ├── tests/                        # [test] Unit tests using pytest
@@ -36,7 +36,7 @@ flightmodels/
 │   │   ├── conf.py               # [docs] Setup for documentation
 │   │   ├── index.rst             # [docs] Main page with menus in *.rst
 │   │   ├── setup.md              # [docs] One of the documentation pages in *.md
-│   │   ├── flightmodels.rst      # [docs] The file to create the API based on docstrings
+│   │   ├── gliderflightOG1.rst   # [docs] The file to create the API based on docstrings
 │   │   ├── ...                   # [docs] More *.md or *.rst linked in index.rst
 │   │   └── _static               # [docs] Figures
 │   │       ├── css/custom.css    # [docs, style] Custom style sheet for docs
@@ -83,5 +83,5 @@ The tags above give an indication of what parts of this project are used for wha
 - `# [style]` – Configuration for code style, linting, and formatting.
 - `# [meta]` – Project metadata (e.g., citation info, license, README).
 
-**Note:** There are also files that you may end up generating but which don't necessarily appear in the project on GitHub.com (due to being ignored by your `.gitignore`).  These may include your environment (`venv/`, if you use pip and virtual environments), distribution files `dist/` for building packages to deploy on http://pypi.org, `htmlcov/` for coverage reports for tests, `flightmodels.egg-info` for editable installs (e.g., `pip install -e .`).
+**Note:** There are also files that you may end up generating but which don't necessarily appear in the project on GitHub.com (due to being ignored by your `.gitignore`).  These may include your environment (`venv/`, if you use pip and virtual environments), distribution files `dist/` for building packages to deploy on http://pypi.org, `htmlcov/` for coverage reports for tests, `gliderflightOG1.egg-info` for editable installs (e.g., `pip install -e .`).
 

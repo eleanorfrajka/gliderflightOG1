@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>flightmodels.tools &mdash; flightmodels v0.0.0 documentation</title>
+  <title>gliderflightOG1.tools &mdash; gliderflightOG1 v0.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=20758594" />
@@ -31,7 +31,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            flightmodels
+            gliderflightOG1
               <img src="../../_static/logo_seaglider.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
@@ -56,8 +56,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Help and reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="http://github.com/eleanorfrajka/flightmodels">GitHub Repo</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flightmodels.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">flightmodels</span> <span class="pre">API</span></code></a></li>
+<li class="toctree-l1"><a class="reference external" href="http://github.com/eleanorfrajka/gliderflightOG1">GitHub Repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gliderflightOG1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gliderflightOG1</span> <span class="pre">API</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ / Troubleshooting</a></li>
 </ul>
 
@@ -67,7 +67,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">flightmodels</a>
+          <a href="../../index.html">gliderflightOG1</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -76,7 +76,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">flightmodels.tools</li>
+      <li class="breadcrumb-item active">gliderflightOG1.tools</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,13 +85,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for flightmodels.tools</h1><div class="highlight"><pre>
+  <h1>Source code for gliderflightOG1.tools</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span><span class="w"> </span><span class="nn">logging</span>
 
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">gsw</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">flightmodels</span><span class="w"> </span><span class="kn">import</span> <span class="n">utilities</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gliderflightOG1</span><span class="w"> </span><span class="kn">import</span> <span class="n">utilities</span>
 
 <span class="c1"># Initialize logging</span>
 <span class="n">_log</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
@@ -132,12 +132,11 @@
 
 
 <div class="viewcode-block" id="compute_insitu_density">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.compute_insitu_density">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.compute_insitu_density">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">compute_insitu_density</span><span class="p">(</span>
     <span class="n">salinity</span><span class="p">,</span> <span class="n">temperature</span><span class="p">,</span> <span class="n">pressure</span><span class="p">,</span> <span class="n">longitude</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">latitude</span><span class="o">=</span><span class="kc">None</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute in-situ density from salinity, temperature, and pressure using GSW.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute in-situ density from salinity, temperature, and pressure using GSW.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -156,8 +155,8 @@
 <span class="sd">    -------</span>
 <span class="sd">    density : array-like</span>
 <span class="sd">        In-situ density (kg/m³).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># If longitude and latitude are not provided, use dummy values</span>
     <span class="k">if</span> <span class="n">longitude</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">longitude</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full_like</span><span class="p">(</span><span class="n">pressure</span><span class="p">,</span> <span class="o">-</span><span class="mf">40.0</span><span class="p">)</span>
@@ -178,10 +177,9 @@
 
 
 <div class="viewcode-block" id="calc_w_meas">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.calc_w_meas">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.calc_w_meas">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">calc_w_meas</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculates the vertical velocity of a glider using changes in pressure with time.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculates the vertical velocity of a glider using changes in pressure with time.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -194,8 +192,9 @@
 <span class="sd">        Containing the new variable **GLIDER_VERT_VELO_DZDT** (array-like), with vertical velocities calculated from dz/dt</span>
 
 <span class="sd">    Notes</span>
-<span class="sd">    ------</span>
+<span class="sd">    -----</span>
 <span class="sd">    Original Author: Eleanor Frajka-Williams</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">utilities</span><span class="o">.</span><span class="n">_check_necessary_variables</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;TIME&quot;</span><span class="p">])</span>
     <span class="c1"># Ensure inputs are numpy arrays</span>
@@ -242,10 +241,9 @@
 
 
 <div class="viewcode-block" id="gridthem">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.gridthem">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.gridthem">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">gridthem</span><span class="p">(</span><span class="n">w_measured</span><span class="p">,</span> <span class="n">w_model</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">divenum</span><span class="p">,</span> <span class="n">updn</span><span class="p">,</span> <span class="n">press</span><span class="p">,</span> <span class="n">pgrid</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Bin average vertical speeds into pressure bins.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Bin average vertical speeds into pressure bins.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -270,6 +268,7 @@
 <span class="sd">        Binned dive numbers.</span>
 <span class="sd">    updng : array</span>
 <span class="sd">        Binned up/down flags.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="k">def</span><span class="w"> </span><span class="nf">bin_avg</span><span class="p">(</span><span class="n">segP</span><span class="p">,</span> <span class="n">segD</span><span class="p">,</span> <span class="n">pgrid</span><span class="p">):</span>
@@ -298,10 +297,9 @@
 
 
 <div class="viewcode-block" id="ml_coord">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.ml_coord">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.ml_coord">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ml_coord</span><span class="p">(</span><span class="n">wg</span><span class="p">,</span> <span class="n">wspdg</span><span class="p">,</span> <span class="n">pgrid</span><span class="p">,</span> <span class="n">mld</span><span class="p">,</span> <span class="n">minmld</span><span class="o">=</span><span class="mi">40</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute means and variances for mixed-layer segments of profiles.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute means and variances for mixed-layer segments of profiles.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -326,8 +324,8 @@
 <span class="sd">        Mixed layer depth used per profile [dbar].</span>
 <span class="sd">    hgrid : ndarray</span>
 <span class="sd">        Scaled pressure bin array (zgrid) [0-1].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nprofiles</span><span class="p">,</span> <span class="n">nlevels</span> <span class="o">=</span> <span class="n">wg</span><span class="o">.</span><span class="n">shape</span>
     <span class="n">wmean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">nprofiles</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
     <span class="n">wsqr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">nprofiles</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
@@ -351,10 +349,9 @@
 
 
 <div class="viewcode-block" id="bl_coord">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.bl_coord">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.bl_coord">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">bl_coord</span><span class="p">(</span><span class="n">wg</span><span class="p">,</span> <span class="n">wspdg</span><span class="p">,</span> <span class="n">pgrid</span><span class="p">,</span> <span class="n">mld</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute means for below-mixed-layer segments of profiles.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute means for below-mixed-layer segments of profiles.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -371,8 +368,8 @@
 <span class="sd">    -------</span>
 <span class="sd">    wmean : ndarray</span>
 <span class="sd">        Mean difference (wspdg - wg) below mixed layer, per profile.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nprofiles</span><span class="p">,</span> <span class="n">nlevels</span> <span class="o">=</span> <span class="n">wg</span><span class="o">.</span><span class="n">shape</span>
     <span class="n">wmean</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">nprofiles</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
 
@@ -390,12 +387,11 @@
 
 
 <div class="viewcode-block" id="choose_min_prof">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.choose_min_prof">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.choose_min_prof">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">choose_min_prof</span><span class="p">(</span>
     <span class="n">wg</span><span class="p">,</span> <span class="n">wspdg</span><span class="p">,</span> <span class="n">timeg</span><span class="p">,</span> <span class="n">mld</span><span class="p">,</span> <span class="n">divenumg</span><span class="p">,</span> <span class="n">updng</span><span class="p">,</span> <span class="n">pgrid</span><span class="p">,</span> <span class="n">whichone</span><span class="p">,</span> <span class="n">plotflag</span><span class="o">=</span><span class="mi">0</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Choose minimization metric based on gridded profiles.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Choose minimization metric based on gridded profiles.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -424,8 +420,8 @@
 <span class="sd">        Dictionary of minimization metric(s).</span>
 <span class="sd">    tmp : array</span>
 <span class="sd">        Profile-wise differences (typically dive-climb).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">w_water</span> <span class="o">=</span> <span class="n">wspdg</span> <span class="o">-</span> <span class="n">wg</span>
     <span class="n">allmin</span> <span class="o">=</span> <span class="p">{}</span>
 
@@ -530,10 +526,9 @@
 
 
 <div class="viewcode-block" id="choose_min_long">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.choose_min_long">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.choose_min_long">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">choose_min_long</span><span class="p">(</span><span class="n">w_measured</span><span class="p">,</span> <span class="n">w_model</span><span class="p">,</span> <span class="n">time</span><span class="p">,</span> <span class="n">divenum</span><span class="p">,</span> <span class="n">updn</span><span class="p">,</span> <span class="n">press</span><span class="p">,</span> <span class="n">whichone</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Compute different minimization metrics for long time-series.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compute different minimization metrics for long time-series.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -556,6 +551,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    allmin : dict</span>
 <span class="sd">        Dictionary of metrics.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">w_water</span> <span class="o">=</span> <span class="n">w_model</span> <span class="o">-</span> <span class="n">w_measured</span>
     <span class="n">allmin</span> <span class="o">=</span> <span class="p">{}</span>
@@ -601,10 +597,9 @@
 
 
 <div class="viewcode-block" id="ramsey_binavg">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.ramsey_binavg">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.ramsey_binavg">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ramsey_binavg</span><span class="p">(</span><span class="n">pressure</span><span class="p">,</span> <span class="n">ww</span><span class="p">,</span> <span class="n">zgrid</span><span class="p">,</span> <span class="n">dall</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Perform bin-averaging of vertical speed offsets over pressure bins.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Perform bin-averaging of vertical speed offsets over pressure bins.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -627,8 +622,8 @@
 <span class="sd">        Number of points in each bin.</span>
 <span class="sd">    CIpm : np.ndarray, optional</span>
 <span class="sd">        Confidence interval around mean (NaN if dall not provided).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">nbin</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">zgrid</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
     <span class="n">meanw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">full</span><span class="p">(</span><span class="n">nbin</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">nan</span><span class="p">)</span>
     <span class="n">NNz</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">nbin</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
@@ -664,10 +659,9 @@
 
 
 <div class="viewcode-block" id="cum_ttest">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.cum_ttest">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.cum_ttest">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">cum_ttest</span><span class="p">(</span><span class="n">ndof</span><span class="p">,</span> <span class="n">p</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Approximate cumulative Student&#39;s t-test value.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Approximate cumulative Student&#39;s t-test value.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -680,6 +674,7 @@
 <span class="sd">    -------</span>
 <span class="sd">    tval : float</span>
 <span class="sd">        t-distribution value corresponding to p and ndof.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">t</span>
 
@@ -689,10 +684,9 @@
 
 
 <div class="viewcode-block" id="ramsey_offset">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.ramsey_offset">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.ramsey_offset">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">ramsey_offset</span><span class="p">(</span><span class="n">w_measured</span><span class="p">,</span> <span class="n">w_model</span><span class="p">,</span> <span class="n">updn</span><span class="p">,</span> <span class="n">pressure</span><span class="p">,</span> <span class="n">zgrid</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculate Ramsey offset misfit between measured and modeled vertical speeds.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Calculate Ramsey offset misfit between measured and modeled vertical speeds.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -713,8 +707,8 @@
 <span class="sd">        Dictionary containing &#39;ramsey&#39; WRMS value.</span>
 <span class="sd">    tmp : array-like</span>
 <span class="sd">        Difference between mean dive and mean climb profiles [cm/s].</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Find indices of climbing and diving parts</span>
     <span class="n">iup</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">updn</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">idn</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">updn</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
@@ -737,10 +731,9 @@
 
 
 <div class="viewcode-block" id="reformat_units_var">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.reformat_units_var">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.reformat_units_var">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">reformat_units_var</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">var_name</span><span class="p">,</span> <span class="n">unit_format</span><span class="o">=</span><span class="n">unit_str_format</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Renames units in the dataset based on the provided dictionary for OG1.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Renames units in the dataset based on the provided dictionary for OG1.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -750,6 +743,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    xarray.Dataset: The dataset with renamed units.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">old_unit</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">var_name</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span><span class="p">[</span><span class="s2">&quot;units&quot;</span><span class="p">]</span>
     <span class="k">if</span> <span class="n">old_unit</span> <span class="ow">in</span> <span class="n">unit_format</span><span class="p">:</span>
@@ -761,12 +755,11 @@
 
 
 <div class="viewcode-block" id="convert_units_var">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.tools.convert_units_var">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.tools.convert_units_var">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">convert_units_var</span><span class="p">(</span>
     <span class="n">var_values</span><span class="p">,</span> <span class="n">current_unit</span><span class="p">,</span> <span class="n">new_unit</span><span class="p">,</span> <span class="n">unit_conversion</span><span class="o">=</span><span class="n">unit_conversion</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Convert the units of variables in an xarray Dataset to preferred units.  This is useful, for instance, to convert cm/s to m/s.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert the units of variables in an xarray Dataset to preferred units.  This is useful, for instance, to convert cm/s to m/s.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -780,6 +773,7 @@
 <span class="sd">    Returns</span>
 <span class="sd">    -------</span>
 <span class="sd">    xarray.Dataset: The dataset with converted units.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="p">(</span>
         <span class="n">current_unit</span> <span class="ow">in</span> <span class="n">unit_conversion</span>

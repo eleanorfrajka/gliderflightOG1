@@ -1,10 +1,10 @@
-.. flightmodels documentation master file
+.. gliderflightOG1 documentation master file
 
 ===============================
-Flightmodels: Documentation Hub
+GliderflightOG1: Documentation Hub
 ===============================
 
-Welcome to the documentation for the **flightmodels**.  This is a stub, since the package doesn't yet exist.
+Welcome to the documentation for the **gliderflightOG1**.  This is a stub, since the package doesn't yet exist.
 
 
 .. toctree::
@@ -32,8 +32,8 @@ Welcome to the documentation for the **flightmodels**.  This is a stub, since th
    :maxdepth: 2
    :caption: Help and reference
 
-   GitHub Repo <http://github.com/eleanorfrajka/flightmodels>
-   flightmodels
+   GitHub Repo <http://github.com/eleanorfrajka/gliderflightOG1>
+   gliderflightOG1
    faq
 
 These documentation pages were created based on processes used to develop and maintain http://github.com/OceanGlidersCommunity/glidertest and edited using chatGPT.

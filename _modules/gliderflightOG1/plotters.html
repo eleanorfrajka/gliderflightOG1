@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>flightmodels.plotters &mdash; flightmodels v0.0.0 documentation</title>
+  <title>gliderflightOG1.plotters &mdash; gliderflightOG1 v0.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=20758594" />
@@ -31,7 +31,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            flightmodels
+            gliderflightOG1
               <img src="../../_static/logo_seaglider.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
@@ -56,8 +56,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Help and reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="http://github.com/eleanorfrajka/flightmodels">GitHub Repo</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flightmodels.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">flightmodels</span> <span class="pre">API</span></code></a></li>
+<li class="toctree-l1"><a class="reference external" href="http://github.com/eleanorfrajka/gliderflightOG1">GitHub Repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gliderflightOG1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gliderflightOG1</span> <span class="pre">API</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ / Troubleshooting</a></li>
 </ul>
 
@@ -67,7 +67,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">flightmodels</a>
+          <a href="../../index.html">gliderflightOG1</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -76,7 +76,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">flightmodels.plotters</li>
+      <li class="breadcrumb-item active">gliderflightOG1.plotters</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,14 +85,14 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for flightmodels.plotters</h1><div class="highlight"><pre>
+  <h1>Source code for gliderflightOG1.plotters</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataFrame</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">xarray</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">xr</span>
 
 
 <div class="viewcode-block" id="plot_model_comparisons">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.plotters.plot_model_comparisons">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.plotters.plot_model_comparisons">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">plot_model_comparisons</span><span class="p">(</span>
     <span class="n">glider</span><span class="p">:</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">,</span>
     <span class="n">models</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
@@ -104,8 +104,7 @@
     <span class="n">model_labels</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
     <span class="n">title</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Plot measured vs modeled glider speeds for multiple models.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Plot measured vs modeled glider speeds for multiple models.</span>
 
 <span class="sd">    Parameters</span>
 <span class="sd">    ----------</span>
@@ -127,8 +126,8 @@
 <span class="sd">        Labels for model results; if None, keys of models dict are used.</span>
 <span class="sd">    title : str, optional</span>
 <span class="sd">        Plot title.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="c1"># Select subset</span>
     <span class="k">if</span> <span class="n">select_dives</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
         <span class="n">selection</span> <span class="o">=</span> <span class="n">glider</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">glider</span><span class="p">[</span><span class="s2">&quot;DIVENUM&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">select_dives</span><span class="p">),</span> <span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
@@ -165,23 +164,24 @@
 
 
 <div class="viewcode-block" id="show_variables">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.plotters.show_variables">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.plotters.show_variables">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_variables</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Processes an xarray Dataset or a netCDF file, extracts variable information,</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Processes an xarray Dataset or a netCDF file, extracts variable information,</span>
 <span class="sd">    and returns a styled DataFrame with details about the variables.</span>
 
-<span class="sd">    Parameters:</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
 <span class="sd">    data (str or xr.Dataset): The input data, either a file path to a netCDF file or an xarray Dataset.</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
 <span class="sd">    pandas.io.formats.style.Styler: A styled DataFrame containing the following columns:</span>
 <span class="sd">        - dims: The dimension of the variable (or &quot;string&quot; if it is a string type).</span>
 <span class="sd">        - name: The name of the variable.</span>
 <span class="sd">        - units: The units of the variable (if available).</span>
 <span class="sd">        - comment: Any additional comments about the variable (if available).</span>
-<span class="sd">    &quot;&quot;&quot;</span>
 
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;information is based on file: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
         <span class="n">dataset</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
@@ -232,19 +232,21 @@
 
 
 <div class="viewcode-block" id="show_attributes">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.plotters.show_attributes">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.plotters.show_attributes">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">show_attributes</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Processes an xarray Dataset or a netCDF file, extracts attribute information,</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Processes an xarray Dataset or a netCDF file, extracts attribute information,</span>
 <span class="sd">    and returns a DataFrame with details about the attributes.</span>
 
-<span class="sd">    Parameters:</span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
 <span class="sd">    data (str or xr.Dataset): The input data, either a file path to a netCDF file or an xarray Dataset.</span>
 
-<span class="sd">    Returns:</span>
+<span class="sd">    Returns</span>
+<span class="sd">    -------</span>
 <span class="sd">    pandas.DataFrame: A DataFrame containing the following columns:</span>
 <span class="sd">        - Attribute: The name of the attribute.</span>
 <span class="sd">        - Value: The value of the attribute.</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">netCDF4</span><span class="w"> </span><span class="kn">import</span> <span class="n">Dataset</span>
 

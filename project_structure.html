@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>What’s in flightmodels? &mdash; flightmodels v0.0.0 documentation</title>
+  <title>What’s in gliderflightOG1? &mdash; gliderflightOG1 v0.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="_static/css/custom.css?v=20758594" />
@@ -32,7 +32,7 @@
           
           
           <a href="index.html" class="icon icon-home">
-            flightmodels
+            gliderflightOG1
               <img src="_static/logo_seaglider.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
@@ -57,8 +57,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Help and reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="http://github.com/eleanorfrajka/flightmodels">GitHub Repo</a></li>
-<li class="toctree-l1"><a class="reference internal" href="flightmodels.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">flightmodels</span> <span class="pre">API</span></code></a></li>
+<li class="toctree-l1"><a class="reference external" href="http://github.com/eleanorfrajka/gliderflightOG1">GitHub Repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gliderflightOG1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gliderflightOG1</span> <span class="pre">API</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ / Troubleshooting</a></li>
 </ul>
 
@@ -68,7 +68,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="index.html">flightmodels</a>
+          <a href="index.html">gliderflightOG1</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -76,7 +76,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">What’s in flightmodels?</li>
+      <li class="breadcrumb-item active">What’s in gliderflightOG1?</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/project_structure.md.txt" rel="nofollow"> View page source</a>
       </li>
@@ -86,20 +86,20 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="whats-in-flightmodels">
-<h1>What’s in flightmodels?<a class="headerlink" href="#whats-in-flightmodels" title="Link to this heading"></a></h1>
-<p>Below is an overview of the files and folders you’ll find in the <code class="docutils literal notranslate"><span class="pre">flightmodels</span></code>, along with what they do and why they’re useful. If you’re new to GitHub or Python packaging, this is your orientation.</p>
+  <section id="what-s-in-gliderflightog1">
+<h1>What’s in gliderflightOG1?<a class="headerlink" href="#what-s-in-gliderflightog1" title="Link to this heading"></a></h1>
+<p>Below is an overview of the files and folders you’ll find in the <code class="docutils literal notranslate"><span class="pre">gliderflightOG1</span></code>, along with what they do and why they’re useful. If you’re new to GitHub or Python packaging, this is your orientation.</p>
 <hr class="docutils" />
 <section id="project-structure-overview">
 <h2>🔍 Project Structure Overview<a class="headerlink" href="#project-structure-overview" title="Link to this heading"></a></h2>
 <p>📷 <em>This is what the package looks like when you clone or fork it:</em></p>
 </section>
 </section>
-<section id="flightmodels-file-structure">
-<h1>📁 <code class="docutils literal notranslate"><span class="pre">flightmodels</span></code> File Structure<a class="headerlink" href="#flightmodels-file-structure" title="Link to this heading"></a></h1>
+<section id="gliderflightog1-file-structure">
+<h1>📁 <code class="docutils literal notranslate"><span class="pre">gliderflightOG1</span></code> File Structure<a class="headerlink" href="#gliderflightog1-file-structure" title="Link to this heading"></a></h1>
 <p>A minimal, modular Python project structure for collaborative research and reproducible workflows.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>flightmodels/
-├── flightmodels                  # [core] Main Python package with scientific code
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>gliderflightOG1/
+├── gliderflightOG1               # [core] Main Python package with scientific code
 │   ├── __init__.py               # [core] Makes this a Python package
 │   ├── plotters.py               # [core] Functions to plot data
 │   ├── readers.py                # [core] Functions to read raw data into xarray datasets
@@ -107,7 +107,7 @@
 │   ├── writers.py                # [core] Functions to write data (e.g., to NetCDF)
 │   ├── tools.py                  # [core] Utilities for unit conversion, calculations, etc.
 │   ├── logger.py                 # [core] Structured logging configuration for reproducible runs
-│   ├── flightmodels.mplstyle     # [core] Default plotting parameters
+│   ├── gliderflightOG1.mplstyle  # [core] Default plotting parameters
 │   └── utilities.py              # [core] Helper functions (e.g., file download or parsing)
 │
 ├── tests/                        # [test] Unit tests using pytest
@@ -121,7 +121,7 @@
 │   │   ├── conf.py               # [docs] Setup for documentation
 │   │   ├── index.rst             # [docs] Main page with menus in *.rst
 │   │   ├── setup.md              # [docs] One of the documentation pages in *.md
-│   │   ├── flightmodels.rst      # [docs] The file to create the API based on docstrings
+│   │   ├── gliderflightOG1.rst   # [docs] The file to create the API based on docstrings
 │   │   ├── ...                   # [docs] More *.md or *.rst linked in index.rst
 │   │   └── _static               # [docs] Figures
 │   │       ├── css/custom.css    # [docs, style] Custom style sheet for docs
@@ -171,7 +171,7 @@
 <li><p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">[style]</span></code> – Configuration for code style, linting, and formatting.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">#</span> <span class="pre">[meta]</span></code> – Project metadata (e.g., citation info, license, README).</p></li>
 </ul>
-<p><strong>Note:</strong> There are also files that you may end up generating but which don’t necessarily appear in the project on GitHub.com (due to being ignored by your <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>).  These may include your environment (<code class="docutils literal notranslate"><span class="pre">venv/</span></code>, if you use pip and virtual environments), distribution files <code class="docutils literal notranslate"><span class="pre">dist/</span></code> for building packages to deploy on http://pypi.org, <code class="docutils literal notranslate"><span class="pre">htmlcov/</span></code> for coverage reports for tests, <code class="docutils literal notranslate"><span class="pre">flightmodels.egg-info</span></code> for editable installs (e.g., <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code>).</p>
+<p><strong>Note:</strong> There are also files that you may end up generating but which don’t necessarily appear in the project on GitHub.com (due to being ignored by your <code class="docutils literal notranslate"><span class="pre">.gitignore</span></code>).  These may include your environment (<code class="docutils literal notranslate"><span class="pre">venv/</span></code>, if you use pip and virtual environments), distribution files <code class="docutils literal notranslate"><span class="pre">dist/</span></code> for building packages to deploy on http://pypi.org, <code class="docutils literal notranslate"><span class="pre">htmlcov/</span></code> for coverage reports for tests, <code class="docutils literal notranslate"><span class="pre">gliderflightOG1.egg-info</span></code> for editable installs (e.g., <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">-e</span> <span class="pre">.</span></code>).</p>
 </section>
 
 

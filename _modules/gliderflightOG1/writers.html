@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>flightmodels.writers &mdash; flightmodels v0.0.0 documentation</title>
+  <title>gliderflightOG1.writers &mdash; gliderflightOG1 v0.0.0 documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/custom.css?v=20758594" />
@@ -31,7 +31,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            flightmodels
+            gliderflightOG1
               <img src="../../_static/logo_seaglider.png" class="logo" alt="Logo"/>
           </a>
 <div role="search">
@@ -56,8 +56,8 @@
 </ul>
 <p class="caption" role="heading"><span class="caption-text">Help and reference</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference external" href="http://github.com/eleanorfrajka/flightmodels">GitHub Repo</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../flightmodels.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">flightmodels</span> <span class="pre">API</span></code></a></li>
+<li class="toctree-l1"><a class="reference external" href="http://github.com/eleanorfrajka/gliderflightOG1">GitHub Repo</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gliderflightOG1.html"><code class="xref py py-mod docutils literal notranslate"><span class="pre">gliderflightOG1</span> <span class="pre">API</span></code></a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../faq.html">FAQ / Troubleshooting</a></li>
 </ul>
 
@@ -67,7 +67,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">flightmodels</a>
+          <a href="../../index.html">gliderflightOG1</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -76,7 +76,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">flightmodels.writers</li>
+      <li class="breadcrumb-item active">gliderflightOG1.writers</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -85,7 +85,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for flightmodels.writers</h1><div class="highlight"><pre>
+  <h1>Source code for gliderflightOG1.writers</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">numbers</span><span class="w"> </span><span class="kn">import</span> <span class="n">Number</span>
 
@@ -93,12 +93,11 @@
 
 
 <div class="viewcode-block" id="save_dataset">
-<a class="viewcode-back" href="../../flightmodels.html#flightmodels.writers.save_dataset">[docs]</a>
+<a class="viewcode-back" href="../../gliderflightOG1.html#gliderflightOG1.writers.save_dataset">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">save_dataset</span><span class="p">(</span>
     <span class="n">ds</span><span class="p">,</span> <span class="n">output_file</span><span class="o">=</span><span class="s2">&quot;../data/test.nc&quot;</span><span class="p">,</span> <span class="n">delete_existing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">prompt_user</span><span class="o">=</span><span class="kc">True</span>
 <span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Attempts to save the dataset to a NetCDF file. If a TypeError occurs due to invalid attribute values,</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Attempts to save the dataset to a NetCDF file. If a TypeError occurs due to invalid attribute values,</span>
 <span class="sd">    it converts the invalid attributes to strings and retries the save operation.</span>
 
 <span class="sd">    Parameters</span>
@@ -113,6 +112,7 @@
 <span class="sd">    bool: True if the dataset was saved successfully, False otherwise.</span>
 
 <span class="sd">    Based on: https://github.com/pydata/xarray/issues/3743</span>
+
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">output_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">output_file</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">output_path</span><span class="o">.</span><span class="n">exists</span><span class="p">():</span>
